@@ -23,6 +23,7 @@ public class Grade {
         return value;
     }
 
+    // TODO - step every 0.5
     public void setValue(float value) {
         this.value = value;
     }

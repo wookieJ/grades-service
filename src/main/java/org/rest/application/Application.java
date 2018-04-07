@@ -21,7 +21,7 @@ public class Application
      */
     public static HttpServer startServer()
     {
-        final ResourceConfig rc = new ResourceConfig().packages("com.cognifide.endpoints");
+        final ResourceConfig rc = new ResourceConfig().packages("org.rest.endpoints");
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }
 
