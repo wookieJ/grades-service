@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd9bfb06-411a-4cf1-a137-1a4fdace3d64" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/rest/data/Data.java" afterPath="$PROJECT_DIR$/src/main/java/org/rest/data/Data.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/rest/endpoints/StudentsEndpoint.java" afterPath="$PROJECT_DIR$/src/main/java/org/rest/endpoints/StudentsEndpoint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/rest/model/Grade.java" afterPath="$PROJECT_DIR$/src/main/java/org/rest/model/Grade.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/rest/model/Course.java" afterPath="$PROJECT_DIR$/src/main/java/org/rest/model/Course.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -67,11 +65,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GradesEndpoint.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GradesEndpoint.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/endpoints/GradesEndpoint.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="100" column="33" lean-forward="false" selection-start-line="100" selection-start-column="33" selection-end-line="100" selection-end-column="33" />
+            <state relative-caret-position="307">
+              <caret line="88" column="56" lean-forward="true" selection-start-line="88" selection-start-column="56" selection-end-line="88" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#693#706#0" expanded="true" />
@@ -80,17 +78,32 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="CoursesEndpoint.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/endpoints/CoursesEndpoint.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="81" column="57" lean-forward="true" selection-start-line="81" selection-start-column="57" selection-end-line="81" selection-end-column="57" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#730#744#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Data.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/data/Data.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="178" column="49" lean-forward="true" selection-start-line="178" selection-start-column="49" selection-end-line="178" selection-end-column="49" />
+            <state relative-caret-position="409">
+              <caret line="240" column="24" lean-forward="false" selection-start-line="240" selection-start-column="24" selection-end-line="240" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2750#2751#0" expanded="true" />
                 <element signature="e#2794#2795#0" expanded="true" />
                 <element signature="e#4217#4218#0" expanded="true" />
                 <element signature="e#4262#4263#0" expanded="true" />
+                <element signature="e#5605#5606#0" expanded="true" />
+                <element signature="e#5652#5653#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -99,8 +112,8 @@
       <file leaf-file-name="Course.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/model/Course.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-127">
-              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            <state relative-caret-position="34">
+              <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -154,9 +167,11 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/org/rest/application/Application.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/rest/model/Grade.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/rest/data/Data.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/rest/endpoints/StudentsEndpoint.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/rest/endpoints/GradesEndpoint.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/rest/model/Course.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/rest/data/Data.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/rest/endpoints/CoursesEndpoint.java" />
       </list>
     </option>
   </component>
@@ -410,12 +425,12 @@
       <workItem from="1522947105650" duration="6000" />
       <workItem from="1522947182331" duration="4806000" />
       <workItem from="1523031285643" duration="1309000" />
-      <workItem from="1523088432941" duration="11533000" />
+      <workItem from="1523088432941" duration="12577000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17654000" />
+    <option name="totallyTimeSpent" value="18698000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1096" extended-state="6" />
@@ -523,6 +538,8 @@
             <element signature="e#2794#2795#0" expanded="true" />
             <element signature="e#4217#4218#0" expanded="true" />
             <element signature="e#4262#4263#0" expanded="true" />
+            <element signature="e#5605#5606#0" expanded="true" />
+            <element signature="e#5652#5653#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -556,6 +573,8 @@
             <element signature="e#2794#2795#0" expanded="true" />
             <element signature="e#4217#4218#0" expanded="true" />
             <element signature="e#4262#4263#0" expanded="true" />
+            <element signature="e#5605#5606#0" expanded="true" />
+            <element signature="e#5652#5653#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -595,14 +614,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/model/Course.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-127">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/application/Application.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -624,20 +635,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/data/Data.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="178" column="49" lean-forward="true" selection-start-line="178" selection-start-column="49" selection-end-line="178" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2750#2751#0" expanded="true" />
-            <element signature="e#2794#2795#0" expanded="true" />
-            <element signature="e#4217#4218#0" expanded="true" />
-            <element signature="e#4262#4263#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/endpoints/StudentsEndpoint.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
@@ -651,11 +648,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/endpoints/GradesEndpoint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="100" column="33" lean-forward="false" selection-start-line="100" selection-start-column="33" selection-end-line="100" selection-end-column="33" />
+        <state relative-caret-position="307">
+          <caret line="88" column="56" lean-forward="true" selection-start-line="88" selection-start-column="56" selection-end-line="88" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#693#706#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/model/Course.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/data/Data.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="240" column="24" lean-forward="false" selection-start-line="240" selection-start-column="24" selection-end-line="240" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2750#2751#0" expanded="true" />
+            <element signature="e#2794#2795#0" expanded="true" />
+            <element signature="e#4217#4218#0" expanded="true" />
+            <element signature="e#4262#4263#0" expanded="true" />
+            <element signature="e#5605#5606#0" expanded="true" />
+            <element signature="e#5652#5653#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/endpoints/CoursesEndpoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="81" column="57" lean-forward="true" selection-start-line="81" selection-start-column="57" selection-end-line="81" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#730#744#0" expanded="true" />
           </folding>
         </state>
       </provider>

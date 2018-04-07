@@ -185,4 +185,61 @@ public class Data
         } else
             return false;
     }
+
+    /**
+     * Getting course by id.
+     *
+     * @param id id of looking course
+     * @return course if exists or null if doesn't
+     */
+    public static Course getCourseById(int id)
+    {
+        Optional<Course> course = getCourses().stream().filter(c -> c.getId() == id).findFirst();
+        return course.orElse(null);
+    }
+
+    /**
+     * Adding new course to courses list
+     *
+     * @param course new course to add
+     * @return true if operation succeeded, false otherwise
+     */
+    public static boolean addCourse(Course course)
+    {
+        return getCourses().add(course);
+    }
+
+    /**
+     * Updating course.
+     *
+     * @param course new course
+     * @return true if operation succeeded, false otherwise
+     */
+    public static boolean updateCourse(Course course)
+    {
+        int index = getCourses().indexOf(getCourseById(course.getId()));
+        if (index != -1)
+        {
+            getCourses().set(index, course);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Removing course if exists.
+     *
+     * @param id id of removing course
+     * @return true if operation succeeded, false otherwise
+     */
+    public static boolean removeCourseById(int id)
+    {
+        if (getCourseById(id) != null)
+        {
+            getCourses().remove(getCourseById(id));
+            return true;
+        } else
+            return false;
+    }
 }
