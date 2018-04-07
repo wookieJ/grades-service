@@ -5,17 +5,17 @@ import java.util.Date;
 
 @XmlRootElement
 public class Grade {
-    private long id;
+    private int id;
     private float value;
     private Date date;
     private Course course;
-    private static long idNumber = 0;
+    private static int idNumber = 0;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

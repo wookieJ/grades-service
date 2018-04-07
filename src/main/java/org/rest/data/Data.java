@@ -4,7 +4,6 @@ import org.rest.model.Course;
 import org.rest.model.Grade;
 import org.rest.model.Student;
 
-import java.awt.print.Book;
 import java.util.*;
 
 public class Data
@@ -26,17 +25,6 @@ public class Data
     public static List<Course> getCourses()
     {
         return courses;
-    }
-
-    /**
-     * Adding new student to students list
-     *
-     * @param student new student
-     * @return true if operation succeeded, false otherwise
-     */
-    public static boolean addStudent(Student student)
-    {
-        return students.add(student);
     }
 
     /**
@@ -85,7 +73,8 @@ public class Data
     }
 
     /**
-     * Getting student by index value
+     * Getting student by index value.
+     *
      * @param index unique index value
      * @return student or null if doesn't exist
      */
@@ -96,29 +85,104 @@ public class Data
     }
 
     /**
-     * Updating student in array
+     * Adding new student to students list.
      *
-     * @param student new student to update
+     * @param student new student
+     * @return true if operation succeeded, false otherwise
      */
-    public static void updateStudent(Student student)
+    public static boolean addStudent(Student student)
     {
-        int index = getStudents().indexOf(getStudentByIndex(student.getIndex()));
-        getStudents().set(index, student);
+        return students.add(student);
     }
 
     /**
-     * Removing student from list by index number
+     * Updating student in array.
+     *
+     * @param student new student to update
+     * @return true if operation succeeded, false otherwise
+     */
+    public static boolean updateStudent(Student student)
+    {
+        int index = getStudents().indexOf(getStudentByIndex(student.getIndex()));
+        if (index != -1)
+        {
+            getStudents().set(index, student);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Removing student from list by index number.
+     *
      * @param index student's index number
      * @return true if operation succeeded, false otherwise
      */
     public static boolean removeStudentByIndex(int index)
     {
-        if(getStudentByIndex(index) != null)
+        if (getStudentByIndex(index) != null)
         {
             getStudents().remove(getStudentByIndex(index));
             return true;
+        } else
+            return false;
+    }
+
+    /**
+     * Getting grade by id.
+     *
+     * @param id id of looking grade
+     * @return grade if exists or null if doesn't
+     */
+    public static Grade getGradeById(int id)
+    {
+        Optional<Grade> grade = getGrades().stream().filter(g -> g.getId() == id).findFirst();
+        return grade.orElse(null);
+    }
+
+    /**
+     * Adding new grade to grades list
+     *
+     * @param grade new grade to add
+     * @return true if operation succeeded, false otherwise
+     */
+    public static boolean addGrade(Grade grade)
+    {
+        return getGrades().add(grade);
+    }
+
+    /**
+     * Updating grade.
+     *
+     * @param grade new grade
+     * @return true if operation succeeded, false otherwise
+     */
+    public static boolean updateGrade(Grade grade)
+    {
+        int index = getGrades().indexOf(getGradeById(grade.getId()));
+        if (index != -1)
+        {
+            getGrades().set(index, grade);
+            return true;
         }
-        else
+
+        return false;
+    }
+
+    /**
+     * Removing grade if exists.
+     *
+     * @param id id of removing grade
+     * @return true if operation succeeded, false otherwise
+     */
+    public static boolean removeGradeById(int id)
+    {
+        if (getGradeById(id) != null)
+        {
+            getGrades().remove(getGradeById(id));
+            return true;
+        } else
             return false;
     }
 }

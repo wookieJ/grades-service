@@ -50,12 +50,19 @@ public class StudentsEndpoint
     @Consumes(MediaType.APPLICATION_XML)
     public Response addStudent(Student student)
     {
-        // adding student to students list
-        Data.addStudent(student);
-        String result = "Student " + student + " added!";
+        // TODO - sprawdzić czy czasem nie istnieje już taki - index musi być unikalny
+        // TODO - sprawdzić czy obiekt oceny(a) jest ok
+        if (student != null)
+        {
+            // adding student to students list
+            Data.addStudent(student);
+            String result = "Student " + student + " added!";
 
-        // creating response
-        return Response.status(Response.Status.CREATED).entity(result).build();
+            // creating response
+            return Response.status(Response.Status.CREATED).entity(result).build();
+        }
+        else
+            return Response.status(Response.Status.NO_CONTENT).entity("Student cannot be null!").build();
     }
 
     @PUT
@@ -80,7 +87,7 @@ public class StudentsEndpoint
 
     @DELETE
     @Path("/delete/{index}")
-    public Response updateStudent(@PathParam("index") int index)
+    public Response deleteStudent(@PathParam("index") int index)
     {
         // getting student by it's index
         Student searchedStudent = Data.getStudentByIndex(index);
