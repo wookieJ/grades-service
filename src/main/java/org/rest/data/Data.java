@@ -218,11 +218,12 @@ public class Data
      * Updating course.
      *
      * @param course new course
+     * @param id     id of updating course
      * @return true if operation succeeded, false otherwise
      */
-    public static boolean updateCourse(Course course)
+    public static boolean updateCourse(Course course, int id)
     {
-        int index = getCourses().indexOf(getCourseById(course.getId()));
+        int index = getCourses().indexOf(getCourseById(id));
         if (index != -1)
         {
             getCourses().set(index, course);

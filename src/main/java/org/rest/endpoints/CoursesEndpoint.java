@@ -4,6 +4,7 @@ import jersey.repackaged.com.google.common.collect.Lists;
 import org.rest.data.Data;
 import org.rest.model.Course;
 import org.rest.model.Grade;
+import org.rest.model.Student;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
@@ -15,7 +16,6 @@ import java.util.List;
 public class CoursesEndpoint
 {
     @GET
-    @Path("/all")
     @Produces(MediaType.APPLICATION_XML)
     public Response getAllCourses()
     {
@@ -47,38 +47,45 @@ public class CoursesEndpoint
     }
 
     @POST
-    @Path("/add")
     @Consumes(MediaType.APPLICATION_XML)
-    public Response addCourse(Course course)
+    public Response addCourse(Course[] courses)
     {
         // TODO - sprawdzić czy istnieje kurs
         // TODO - czy id trzeba dać czy można dać automatyczną generację przy tworzeniu?
-        if (course != null)
+        if (courses != null)
         {
-            // adding course to courses list
-            Data.addCourse(course);
-            String result = "Course " + course + " added!";
+            String result = "";
+
+            // adding student to students list
+            for (Course course : courses)
+            {
+                // TODO - Dodamy przedmiot nawet jeśli wskazane id już istnieje... Czy nie inkrementować?
+                Course newCourse = new Course(course);
+                Data.addCourse(newCourse);
+                result += "Course " + newCourse + " added!\n";
+            }
 
             // creating response
             return Response.status(Response.Status.CREATED).entity(result).build();
         } else
-            return Response.status(Response.Status.NO_CONTENT).entity("Course cannot be null!").build();
+            return Response.status(Response.Status.NO_CONTENT).entity("Courses cannot be null!").build();
     }
 
     @PUT
-    @Path("/update")
+    @Path("/{id}")
     @Consumes(MediaType.APPLICATION_XML)
-    public Response updateCourse(Course course)
+    public Response updateCourse(Course course, @PathParam("id") int id)
     {
         // getting course by it's index
-        Course searchedCourse = Data.getCourseById(course.getId());
+        Course searchedCourse = Data.getCourseById(id);
 
         // checking if course exists
         if (searchedCourse == null)
             return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
 
+        course.setId(id);
         // updating course
-        Data.updateCourse(course);
+        Data.updateCourse(course, id);
         String result = "Course " + course + " updated!";
 
         // creating response
@@ -86,7 +93,7 @@ public class CoursesEndpoint
     }
 
     @DELETE
-    @Path("/delete/{id}")
+    @Path("/{id}")
     public Response deleteGrade(@PathParam("id") int id)
     {
         // getting course by it's index

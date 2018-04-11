@@ -14,7 +14,6 @@ import java.util.List;
 public class GradesEndpoint
 {
     @GET
-    @Path("/all")
     @Produces(MediaType.APPLICATION_XML)
     public Response getAllGrades()
     {
@@ -45,47 +44,8 @@ public class GradesEndpoint
         return Response.status(Response.Status.OK).entity(gradeByIndex).build();
     }
 
-    @POST
-    @Path("/add")
-    @Consumes(MediaType.APPLICATION_XML)
-    public Response addGrade(Grade grade)
-    {
-        // TODO - sprawdzić czy istnieje kurs
-        // TODO - czy id trzeba dać czy można dać automatyczną generację przy tworzeniu?
-        if (grade != null)
-        {
-            // adding grade to grades list
-            Data.addGrade(grade);
-            String result = "Grade " + grade + " added!";
-
-            // creating response
-            return Response.status(Response.Status.CREATED).entity(result).build();
-        } else
-            return Response.status(Response.Status.NO_CONTENT).entity("Grade cannot be null!").build();
-    }
-
-    @PUT
-    @Path("/update")
-    @Consumes(MediaType.APPLICATION_XML)
-    public Response updateGrade(Grade grade)
-    {
-        // getting grade by it's index
-        Grade searchedGrade = Data.getGradeById(grade.getId());
-
-        // checking if grade exists
-        if (searchedGrade == null)
-            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
-
-        // updating grade
-        Data.updateGrade(grade);
-        String result = "Grade " + grade + " updated!";
-
-        // creating response
-        return Response.status(Response.Status.OK).entity(result).build();
-    }
-
     @DELETE
-    @Path("/delete/{id}")
+    @Path("/{id}")
     public Response deleteGrade(@PathParam("id") int id)
     {
         // getting grade by it's index
