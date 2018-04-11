@@ -72,6 +72,8 @@ public class Data
         return date;
     }
 
+    // TODO - Utworzyć interfejs generyczny CRUD
+
     /**
      * Getting student by index value.
      *
@@ -106,6 +108,9 @@ public class Data
         int index = getStudents().indexOf(getStudentByIndex(student.getIndex()));
         if (index != -1)
         {
+            // prevent from adding null list
+            if (student.getGrades() == null)
+                student.setGrades(new ArrayList<>());
             getStudents().set(index, student);
             return true;
         }
@@ -238,6 +243,23 @@ public class Data
         if (getCourseById(id) != null)
         {
             getCourses().remove(getCourseById(id));
+            return true;
+        } else
+            return false;
+    }
+
+    /**
+     * Removing student grade
+     *
+     * @param id      id of removing grade
+     * @param student student from whom we want delete the grade
+     * @return true if operation succeeded, false otherwise
+     */
+    public static boolean removeStudentGradeByIndex(Student student, int id)
+    {
+        if (getGradeById(id) != null)
+        {
+            student.getGrades().remove(getGradeById(id));
             return true;
         } else
             return false;

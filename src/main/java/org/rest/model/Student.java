@@ -81,4 +81,13 @@ public class Student
     {
         return "Student{" + "index=" + index + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", birthday=" + birthday + ", grades=" + grades + '}';
     }
+
+    /**
+     * Adding new grade with new id based on posted grade
+     * @param grade grade we want to add to student grades list
+     */
+    public void addGrade(Grade grade)
+    {
+        getGrades().add(grade);
+    }
 }
