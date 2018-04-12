@@ -265,24 +265,4 @@ public class Data
         } else
             return false;
     }
-
-    /**
-     * updating student's grade
-     *
-     * @param grade   new grade to update
-     * @param stIndex student's index
-     * @return true if operation succeeded, false otherwise
-     */
-    public static boolean updateStudentGrade(Grade grade, int stIndex)
-    {
-        Student student = getStudentByIndex(stIndex);
-        int index = student.getGrades().indexOf(grade);
-        if (index != -1)
-        {
-            student.getGrades().set(index, grade);
-            return true;
-        }
-
-        return false;
-    }
 }

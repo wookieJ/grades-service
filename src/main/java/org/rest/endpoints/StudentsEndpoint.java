@@ -138,12 +138,12 @@ public class StudentsEndpoint
             return Response.status(Response.Status.NO_CONTENT).entity("Grades cannot be null!").build();
     }
 
-    @PUT
+    @POST
     @Path("/{index}/grades/{id}")
     @Consumes(MediaType.APPLICATION_XML)
     public Response addStudentGrade(Grade grade, @PathParam("index") int index, @PathParam("id") int id)
     {
-        if (Data.getGradeById(id) != null)
+        if (Data.getGradeById(id) == null)
         {
             // getting student by it's index
             Student searchedStudent = Data.getStudentByIndex(index);
@@ -156,15 +156,15 @@ public class StudentsEndpoint
 
             grade.setId(id);
 
-            Data.updateGrade(grade);
-            Data.updateStudentGrade(grade, index);
+            Data.addGrade(grade);
+            searchedStudent.addGrade(grade);
             String result = "Student grade " + grade + " added!";
 
             // creating response
             return Response.status(Response.Status.CREATED).entity(result).build();
         }
         else
-            return Response.status(Response.Status.METHOD_NOT_ALLOWED).entity("Grade with this id doesn't exists!").build();
+            return Response.status(Response.Status.METHOD_NOT_ALLOWED).entity("Grade with this id exists!").build();
     }
 
     @PUT
