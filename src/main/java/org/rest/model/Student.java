@@ -111,4 +111,21 @@ public class Student
     {
         getGrades().add(grade);
     }
+
+    public void updateStudentGrade(Grade grade, int index)
+    {
+        Student student = Data.getStudentByIndex(index);
+        System.out.println(grade.getId());
+        if(student != null)
+        {
+//            System.out.println(grade);
+            Grade instance = Data.getGradeById(grade.getId());
+            System.out.println(student.getGrades());
+            System.out.println(instance);
+            int idx = student.getGrades().indexOf(instance);
+            System.out.println(idx);
+
+            student.getGrades().set(idx, grade);
+        }
+    }
 }
