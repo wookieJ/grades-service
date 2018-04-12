@@ -52,6 +52,7 @@ public class StudentsEndpoint
     {
         // getting student by it's index
         Student searchedStudent = Data.getStudentByIndex(index);
+        System.out.println(searchedStudent + " " + index);
 
         // checking if student exists
         if (searchedStudent == null)
@@ -88,7 +89,7 @@ public class StudentsEndpoint
 
     @POST
     @Consumes(MediaType.APPLICATION_XML)
-    public Response addStudents(Student[] students)
+    public Response addStudents(Student students)
     {
         // TODO - sprawdzić czy czasem nie istnieje już taki - index musi być unikalny
         // TODO - sprawdzić czy obiekt oceny(a) jest ok
@@ -97,13 +98,15 @@ public class StudentsEndpoint
             String result = "";
 
             // adding student to students list
-            for (Student student : students)
-            {
-                Data.addStudent(student);
-                result += "Student " + student + " added!\n";
-            }
+//            for (Student student : students)
+//            {
+                Student newStudent = new Student(students);
+                Data.addStudent(newStudent);
+                result += "Student " + newStudent + " added!\n";
+//            }
             // creating response
-            return Response.status(Response.Status.CREATED).entity(result).build();
+            Response response = Response.status(Response.Status.CREATED).header("Location", "/students/" + newStudent.getIndex()).entity(result).build();
+            return response;
         } else
             return Response.status(Response.Status.NO_CONTENT).entity("Students cannot be null!").build();
     }
@@ -111,7 +114,7 @@ public class StudentsEndpoint
     @POST
     @Path("/{index}/grades")
     @Consumes(MediaType.APPLICATION_XML)
-    public Response addStudentGrades(Grade[] grades, @PathParam("index") int index)
+    public Response addStudentGrades(Grade grades, @PathParam("index") int index)
     {
         if (grades != null)
         {
@@ -124,16 +127,16 @@ public class StudentsEndpoint
 
             String result = "";
             // adding grades list to student
-            for (Grade grade : grades)
-            {
-                Grade newGrade = new Grade(grade);
+//            for (Grade grade : grades)
+//            {
+                Grade newGrade = new Grade(grades);
 
                 Data.addGrade(newGrade);
                 searchedStudent.addGrade(newGrade);
                 result += "Student grade " + newGrade + " added!\n";
-            }
+//            }
             // creating response
-            return Response.status(Response.Status.CREATED).entity(result).build();
+            return Response.status(Response.Status.CREATED).header("Location", "/grades/" + newGrade.getId()).entity(result).build();
         } else
             return Response.status(Response.Status.NO_CONTENT).entity("Grades cannot be null!").build();
     }
@@ -179,9 +182,7 @@ public class StudentsEndpoint
         if (searchedStudent == null)
             return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
 
-        // checking if we sent empty index number
-        if(student.getIndex() == 0)
-            student.setIndex(index);
+        student.setIndex(index);
 
         // updating student
         Data.updateStudent(student);

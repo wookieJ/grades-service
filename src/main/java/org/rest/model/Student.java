@@ -1,5 +1,7 @@
 package org.rest.model;
 
+import org.rest.data.Data;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +14,8 @@ public class Student
     private String lastName;
     private Date birthday;
     private List<Grade> grades;
+
+    private static int idNumber = 0;
 
     public int getIndex()
     {
@@ -63,13 +67,30 @@ public class Student
         this.grades = grades;
     }
 
-    public Student(int index, String firstName, String lastName, Date birthday, List<Grade> grades)
+    public Student(String firstName, String lastName, Date birthday, List<Grade> grades)
     {
-        this.index = index;
+        while(Data.getStudentByIndex(idNumber) != null)
+        {
+            idNumber++;
+        }
+        this.index = idNumber++;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
         this.grades = grades;
+    }
+
+    public Student(Student student)
+    {
+        while(Data.getStudentByIndex(idNumber) != null)
+        {
+            idNumber++;
+        }
+        this.index = idNumber++;
+        this.firstName = student.getFirstName();
+        this.lastName = student.getLastName();
+        this.birthday = student.getBirthday();
+        this.grades = student.getGrades();
     }
 
     public Student()

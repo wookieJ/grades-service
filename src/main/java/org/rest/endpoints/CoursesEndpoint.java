@@ -48,7 +48,7 @@ public class CoursesEndpoint
 
     @POST
     @Consumes(MediaType.APPLICATION_XML)
-    public Response addCourse(Course[] courses)
+    public Response addCourse(Course courses)
     {
         // TODO - sprawdzić czy istnieje kurs
         // TODO - czy id trzeba dać czy można dać automatyczną generację przy tworzeniu?
@@ -57,16 +57,16 @@ public class CoursesEndpoint
             String result = "";
 
             // adding student to students list
-            for (Course course : courses)
-            {
+//            for (Course course : courses)
+//            {
                 // TODO - Dodamy przedmiot nawet jeśli wskazane id już istnieje... Czy nie inkrementować?
-                Course newCourse = new Course(course);
+                Course newCourse = new Course(courses);
                 Data.addCourse(newCourse);
                 result += "Course " + newCourse + " added!\n";
-            }
+//            }
 
             // creating response
-            return Response.status(Response.Status.CREATED).entity(result).build();
+            return Response.status(Response.Status.CREATED).header("Location", "/courses/" + newCourse.getId()).entity(result).build();
         } else
             return Response.status(Response.Status.NO_CONTENT).entity("Courses cannot be null!").build();
     }

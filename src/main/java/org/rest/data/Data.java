@@ -56,9 +56,9 @@ public class Data
         student1Grades.add(grade2);
         student2Grades.add(grade3);
 
-        students.add(new Student(123456, "Jan", "Kowalski", getDate(1995, 01, 03), student1Grades));
-        students.add(new Student(654321, "Mateusz", "Nowak", getDate(1995, 02, 17), student2Grades));
-        students.add(new Student(346845, "Robert", "Kot", getDate(1995, 12, 01), student3Grades));
+        students.add(new Student( "Jan", "Kowalski", getDate(1995, 01, 03), student1Grades));
+        students.add(new Student( "Mateusz", "Nowak", getDate(1995, 02, 17), student2Grades));
+        students.add(new Student( "Robert", "Kot", getDate(1995, 12, 01), student3Grades));
     }
 
     private static Date getDate(int year, int month, int day)
@@ -82,7 +82,7 @@ public class Data
      */
     public static Student getStudentByIndex(int index)
     {
-        Optional<Student> student = getStudents().stream().filter(b -> b.getIndex() != 0 && b.getIndex() == index).findFirst();
+        Optional<Student> student = getStudents().stream().filter(b -> b.getIndex() == index).findFirst();
         return student.orElse(null);
     }
 
@@ -105,9 +105,13 @@ public class Data
      */
     public static boolean updateStudent(Student student)
     {
-        int index = getStudents().indexOf(getStudentByIndex(student.getIndex()));
+//        System.out.println(student.getIndex());
+        Student st = getStudentByIndex(student.getIndex());
+//        System.out.println(st);
+        int index = getStudents().indexOf(st);
         if (index != -1)
         {
+//            System.out.println(index);
             // prevent from adding null list
             if (student.getGrades() == null)
                 student.setGrades(new ArrayList<>());
