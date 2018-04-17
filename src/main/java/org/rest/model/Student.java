@@ -18,7 +18,9 @@ public class Student
 {
     @InjectLinks({
             @InjectLink(value = "/students/{index}", rel = "self"),
-            @InjectLink(resource = org.rest.endpoints.StudentsEndpoint.class, rel = "parent")})
+            @InjectLink(resource = org.rest.endpoints.StudentsEndpoint.class, rel = "parent"),
+            @InjectLink(resource = org.rest.endpoints.GradesEndpoint.class, rel = "grades")}
+    )
     @XmlElement(name = "link")
     @XmlElementWrapper(name = "links")
     @XmlJavaTypeAdapter(Link.JaxbAdapter.class)

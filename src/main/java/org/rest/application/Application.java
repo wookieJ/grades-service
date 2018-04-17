@@ -5,6 +5,8 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.linking.DeclarativeLinkingFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.rest.data.Data;
+import org.rest.exceptions.AppExceptionMapper;
+import org.rest.exceptions.ErrorMessage;
 
 import java.net.URI;
 
@@ -22,7 +24,9 @@ public class Application
      */
     public static HttpServer startServer()
     {
-        final ResourceConfig rc = new ResourceConfig().packages("org.glassfish.jersey.examples.linking").register(DeclarativeLinkingFeature.class).packages("org.rest.endpoints");
+        ResourceConfig rc = new ResourceConfig().packages("org.glassfish.jersey.examples.linking").register(DeclarativeLinkingFeature.class).packages("org.rest.endpoints");
+        rc.register(org.rest.exceptions.AppExceptionMapper.class);
+//        rc.register(new AppExceptionMapper());
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }
 

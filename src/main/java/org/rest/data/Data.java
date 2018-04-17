@@ -36,9 +36,17 @@ public class Data
         courses.add(course2);
         courses.add(course3);
 
+        Student student1 = new Student("Jan", "Kowalski", getDate(1995, 01, 03), null);
+        Student student2 = new Student("Mateusz", "Nowak", getDate(1995, 02, 17), null);
+        Student student3 = new Student("Robert", "Kot", getDate(1995, 12, 01), null);
+
         Grade grade1 = new Grade(4, new Date(), course1);
         Grade grade2 = new Grade(3.5f, new Date(), course1);
         Grade grade3 = new Grade(5, new Date(), course2);
+
+        grade1.setStudentIndex(0);
+        grade2.setStudentIndex(0);
+        grade3.setStudentIndex(1);
 
         List<Grade> student1Grades = new ArrayList<>();
         List<Grade> student2Grades = new ArrayList<>();
@@ -48,9 +56,13 @@ public class Data
         student1Grades.add(grade2);
         student2Grades.add(grade3);
 
-        students.add(new Student("Jan", "Kowalski", getDate(1995, 01, 03), student1Grades));
-        students.add(new Student("Mateusz", "Nowak", getDate(1995, 02, 17), student2Grades));
-        students.add(new Student("Robert", "Kot", getDate(1995, 12, 01), student3Grades));
+        student1.setGrades(student1Grades);
+        student2.setGrades(student2Grades);
+        student3.setGrades(student3Grades);
+
+        students.add(student1);
+        students.add(student2);
+        students.add(student3);
     }
 
     private static Date getDate(int year, int month, int day)

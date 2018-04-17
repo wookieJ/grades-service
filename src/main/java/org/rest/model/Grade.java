@@ -1,11 +1,29 @@
 package org.rest.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.glassfish.jersey.linking.InjectLink;
+import org.glassfish.jersey.linking.InjectLinks;
+
+import javax.ws.rs.core.Link;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
+import java.util.List;
 
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Grade
 {
+    @InjectLinks({
+            @InjectLink(value = "/students/{studentIndex}/grades/{id}", rel = "self"),
+            @InjectLink(value = "/students/{studentIndex}/grades", rel = "parent")})
+    @XmlElement(name = "link")
+    @XmlElementWrapper(name = "links")
+    @XmlJavaTypeAdapter(Link.JaxbAdapter.class)
+    List<Link> links;
+
+    @XmlTransient
+    private int studentIndex;
+
     private int id;
     private float value;
     private Date date;
@@ -21,6 +39,16 @@ public class Grade
     public void setId(int id)
     {
         this.id = id;
+    }
+
+    public int getStudentIndex()
+    {
+        return studentIndex;
+    }
+
+    public void setStudentIndex(int studentIndex)
+    {
+        this.studentIndex = studentIndex;
     }
 
     public float getValue()
@@ -63,6 +91,7 @@ public class Grade
 
     public Grade(Grade grade)
     {
+        this.studentIndex = grade.studentIndex;
         this.id = idNumber++;
         this.value = grade.getValue();
         this.date = grade.getDate();
@@ -76,6 +105,6 @@ public class Grade
     @Override
     public String toString()
     {
-        return "Grade{" + "id=" + id + ", value=" + value + ", date=" + date + ", course=" + course + '}';
+        return "Grade{" + "id=" + id + ", studentIndex=" + studentIndex + ", value=" + value + ", date=" + date + ", course=" + course + '}';
     }
 }
