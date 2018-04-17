@@ -15,23 +15,25 @@ import java.util.List;
 public class StudentsEndpoint
 {
     @GET
-    @Produces(MediaType.APPLICATION_XML)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getAllStudents()
     {
         // checking if student list is empty
         if (Data.getStudents().size() == 0)
             return Response.status(Response.Status.NOT_FOUND).entity("No students").build();
 
-        GenericEntity<List<Student>> entity = new GenericEntity<List<Student>>(Lists.newArrayList(Data.getStudents()))
+        List<Student> studentList = Data.getStudents();
+
+        GenericEntity<List<Student>> entity = new GenericEntity<List<Student>>(Lists.newArrayList(studentList))
         {
         };
-        // creating xml response
+        // creating response
         return Response.status(Response.Status.OK).entity(entity).build();
     }
 
     @GET
     @Path("/{index}")
-    @Produces(MediaType.APPLICATION_XML)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getStudentByIndex(@PathParam("index") int index)
     {
         // getting student by it's index
@@ -47,7 +49,7 @@ public class StudentsEndpoint
 
     @GET
     @Path("/{index}/grades")
-    @Produces(MediaType.APPLICATION_XML)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getStudentGrades(@PathParam("index") int index)
     {
         // getting student by it's index
@@ -68,42 +70,41 @@ public class StudentsEndpoint
 
     @GET
     @Path("/{index}/grades/{id}")
-    @Produces(MediaType.APPLICATION_XML)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getStudentGrade(@PathParam("index") int index, @PathParam("id") int id)
     {
         // getting student by it's index
         Student searchedStudent = Data.getStudentByIndex(index);
 
-        // getting grade by id
-        Grade gradeByIndex = Data.getGradeById(id);
-
-        // checking if student exists and has this grade
-        if (searchedStudent == null || gradeByIndex == null || !searchedStudent.getGrades().contains(gradeByIndex))
+        // checking if student exists
+        if (searchedStudent == null)
         {
-            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
+        }
+
+        // getting student's grade by it's id
+        Grade searchedGrade = searchedStudent.getGradeById(id);
+
+        // checking if student's grade exists
+        if (searchedGrade == null)
+        {
+            return Response.status(Response.Status.NOT_FOUND).entity("Grade not found").build();
         }
 
         // creating xml response
-        return Response.status(Response.Status.OK).entity(gradeByIndex).build();
+        return Response.status(Response.Status.OK).entity(searchedGrade).build();
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_XML)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addStudents(Student students)
     {
-        // TODO - sprawdzić czy czasem nie istnieje już taki - index musi być unikalny
-        // TODO - sprawdzić czy obiekt oceny(a) jest ok
         if (students != null)
         {
-            String result = "";
+            Student newStudent = new Student(students);
+            Data.addStudent(newStudent);
+            String result = "Student " + newStudent + " added!\n";
 
-            // adding student to students list
-//            for (Student student : students)
-//            {
-                Student newStudent = new Student(students);
-                Data.addStudent(newStudent);
-                result += "Student " + newStudent + " added!\n";
-//            }
             // creating response
             Response response = Response.status(Response.Status.CREATED).header("Location", "/students/" + newStudent.getIndex()).entity(result).build();
             return response;
@@ -113,66 +114,69 @@ public class StudentsEndpoint
 
     @POST
     @Path("/{index}/grades")
-    @Consumes(MediaType.APPLICATION_XML)
-    public Response addStudentGrades(Grade grades, @PathParam("index") int index)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response addStudentGrades(Grade grade, @PathParam("index") int index)
     {
-        if (grades != null)
+        // checking if grade is a null
+        if (grade != null)
         {
             // getting student by it's index
             Student searchedStudent = Data.getStudentByIndex(index);
 
             // checking if student exists
             if (searchedStudent == null)
-                return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+                return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
 
-            String result = "";
-            // adding grades list to student
-//            for (Grade grade : grades)
-//            {
-                Grade newGrade = new Grade(grades);
+            Grade newGrade = new Grade(grade);
 
-                Data.addGrade(newGrade);
-                searchedStudent.addGrade(newGrade);
-                result += "Student grade " + newGrade + " added!\n";
-//            }
+            searchedStudent.addGrade(newGrade);
+            String result = "Student grade " + newGrade + " added!\n";
+
             // creating response
             return Response.status(Response.Status.CREATED).header("Location", "/grades/" + newGrade.getId()).entity(result).build();
         } else
-            return Response.status(Response.Status.NO_CONTENT).entity("Grades cannot be null!").build();
+            return Response.status(Response.Status.NO_CONTENT).entity("Grade cannot be null!").build();
     }
 
     @PUT
     @Path("/{index}/grades/{id}")
-    @Consumes(MediaType.APPLICATION_XML)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addStudentGrade(Grade grade, @PathParam("index") int index, @PathParam("id") int id)
     {
-        if (Data.getGradeById(id) != null)
+        // checking if grade is a null
+        if (grade != null)
         {
             // getting student by it's index
             Student searchedStudent = Data.getStudentByIndex(index);
 
-            // checking if student exists and has this grade
-            if (searchedStudent == null || grade == null)
+            // checking if student exists
+            if (searchedStudent == null)
             {
-                return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+                return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
+            }
+
+            // getting student's grade by it's id
+            Grade searchedGrade = searchedStudent.getGradeById(id);
+
+            // checking if student's grade exists
+            if (searchedGrade == null)
+            {
+                return Response.status(Response.Status.NOT_FOUND).entity("Grade not found").build();
             }
 
             grade.setId(id);
-
-            searchedStudent.updateStudentGrade(grade, index);
-            Data.updateGrade(grade);
+            searchedStudent.updateStudentGrade(grade);
             String result = "Student grade " + grade + " updated!";
 
             // creating response
             return Response.status(Response.Status.CREATED).entity(result).build();
-        }
-        else
-            return Response.status(Response.Status.NOT_FOUND).entity("Grade with this id doesn't exists!").build();
+        } else
+            return Response.status(Response.Status.NOT_FOUND).entity("Grade cannot be null!").build();
     }
 
     @PUT
     @Path("/{index}")
-    @Consumes(MediaType.APPLICATION_XML)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response updateStudent(Student student, @PathParam("index") int index)
     {
         // getting student by it's index
@@ -180,10 +184,10 @@ public class StudentsEndpoint
 
         // checking if student exists
         if (searchedStudent == null)
-            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
 
-        student.setIndex(index);
         // updating student
+        student.setIndex(index);
         Data.updateStudent(student);
         String result = "Student " + student + " updated!";
 
@@ -200,7 +204,7 @@ public class StudentsEndpoint
 
         // checking if student exists
         if (searchedStudent == null)
-            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
 
         // updating student
         Data.removeStudentByIndex(index);
@@ -216,14 +220,19 @@ public class StudentsEndpoint
     {
         // getting student by it's index
         Student searchedStudent = Data.getStudentByIndex(index);
-        Grade searchedGrade = Data.getGradeById(id);
+
         // checking if student exists
-        if (searchedStudent == null || searchedGrade == null || !searchedStudent.getGrades().contains(searchedGrade))
-            return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
+        if (searchedStudent == null)
+            return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
+
+        Grade searchedGrade = searchedStudent.getGradeById(id);
+        // checking if grade exists
+        if (searchedGrade == null)
+            return Response.status(Response.Status.NOT_FOUND).entity("Grade not found").build();
 
         // removing student grade
-        Data.removeStudentGradeByIndex(searchedStudent, id);
-        String result = "Student grade " + searchedStudent + " deleted!";
+        searchedStudent.removeStudentGradeById(id);
+        String result = "Student grade " + searchedGrade + " deleted!";
 
         // creating response
         return Response.status(Response.Status.OK).entity(result).build();

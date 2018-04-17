@@ -3,8 +3,6 @@ package org.rest.endpoints;
 import jersey.repackaged.com.google.common.collect.Lists;
 import org.rest.data.Data;
 import org.rest.model.Course;
-import org.rest.model.Grade;
-import org.rest.model.Student;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
@@ -16,7 +14,7 @@ import java.util.List;
 public class CoursesEndpoint
 {
     @GET
-    @Produces(MediaType.APPLICATION_XML)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getAllCourses()
     {
         // checking if courses list is empty
@@ -32,7 +30,7 @@ public class CoursesEndpoint
 
     @GET
     @Path("/{id}")
-    @Produces(MediaType.APPLICATION_XML)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getCourseById(@PathParam("id") int id)
     {
         // getting course by id
@@ -47,23 +45,14 @@ public class CoursesEndpoint
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_XML)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addCourse(Course courses)
     {
-        // TODO - sprawdzić czy istnieje kurs
-        // TODO - czy id trzeba dać czy można dać automatyczną generację przy tworzeniu?
         if (courses != null)
         {
-            String result = "";
-
-            // adding student to students list
-//            for (Course course : courses)
-//            {
-                // TODO - Dodamy przedmiot nawet jeśli wskazane id już istnieje... Czy nie inkrementować?
-                Course newCourse = new Course(courses);
-                Data.addCourse(newCourse);
-                result += "Course " + newCourse + " added!\n";
-//            }
+            Course newCourse = new Course(courses);
+            Data.addCourse(newCourse);
+            String result = "Course " + newCourse + " added!\n";
 
             // creating response
             return Response.status(Response.Status.CREATED).header("Location", "/courses/" + newCourse.getId()).entity(result).build();
@@ -73,7 +62,7 @@ public class CoursesEndpoint
 
     @PUT
     @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_XML)
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response updateCourse(Course course, @PathParam("id") int id)
     {
         // getting course by it's index

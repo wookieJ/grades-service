@@ -1,7 +1,5 @@
 package org.rest.model;
 
-import org.rest.data.Data;
-
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
@@ -12,6 +10,7 @@ public class Grade
     private float value;
     private Date date;
     private Course course;
+
     private static int idNumber = 0;
 
     public int getId()
@@ -56,11 +55,6 @@ public class Grade
 
     public Grade(float value, Date date, Course course)
     {
-        // generating new not busy grade's id
-        while(Data.getGradeById(idNumber) != null)
-        {
-            idNumber++;
-        }
         this.id = idNumber++;
         this.value = value;
         this.date = date;
@@ -69,18 +63,7 @@ public class Grade
 
     public Grade(Grade grade)
     {
-        // if we want to add grade with not existing id
-        if(Data.getGradeById(grade.getId()) == null)
-            this.id = grade.getId();
-        else
-        {
-            // generating new not busy grade's id
-            while (Data.getGradeById(idNumber) != null)
-            {
-                idNumber++;
-            }
-            this.id = idNumber++;
-        }
+        this.id = idNumber++;
         this.value = grade.getValue();
         this.date = grade.getDate();
         this.course = grade.getCourse();

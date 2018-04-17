@@ -4,22 +4,18 @@ import org.rest.model.Course;
 import org.rest.model.Grade;
 import org.rest.model.Student;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.*;
 
+@XmlRootElement
 public class Data
 {
     private static List<Student> students = new ArrayList<>();
-    private static List<Grade> grades = new ArrayList<>();
     private static List<Course> courses = new ArrayList<>();
 
     public static List<Student> getStudents()
     {
         return students;
-    }
-
-    public static List<Grade> getGrades()
-    {
-        return grades;
     }
 
     public static List<Course> getCourses()
@@ -44,10 +40,6 @@ public class Data
         Grade grade2 = new Grade(3.5f, new Date(), course1);
         Grade grade3 = new Grade(5, new Date(), course2);
 
-        grades.add(grade1);
-        grades.add(grade2);
-        grades.add(grade3);
-
         List<Grade> student1Grades = new ArrayList<>();
         List<Grade> student2Grades = new ArrayList<>();
         List<Grade> student3Grades = new ArrayList<>();
@@ -56,9 +48,9 @@ public class Data
         student1Grades.add(grade2);
         student2Grades.add(grade3);
 
-        students.add(new Student( "Jan", "Kowalski", getDate(1995, 01, 03), student1Grades));
-        students.add(new Student( "Mateusz", "Nowak", getDate(1995, 02, 17), student2Grades));
-        students.add(new Student( "Robert", "Kot", getDate(1995, 12, 01), student3Grades));
+        students.add(new Student("Jan", "Kowalski", getDate(1995, 01, 03), student1Grades));
+        students.add(new Student("Mateusz", "Nowak", getDate(1995, 02, 17), student2Grades));
+        students.add(new Student("Robert", "Kot", getDate(1995, 12, 01), student3Grades));
     }
 
     private static Date getDate(int year, int month, int day)
@@ -138,62 +130,62 @@ public class Data
             return false;
     }
 
-    /**
-     * Getting grade by id.
-     *
-     * @param id id of looking grade
-     * @return grade if exists or null if doesn't
-     */
-    public static Grade getGradeById(int id)
-    {
-        Optional<Grade> grade = getGrades().stream().filter(g -> g.getId() == id).findFirst();
-        return grade.orElse(null);
-    }
+//    /**
+//     * Getting grade by id.
+//     *
+//     * @param id id of looking grade
+//     * @return grade if exists or null if doesn't
+//     */
+//    public static Grade getGradeById(int id)
+//    {
+//        Optional<Grade> grade = getGrades().stream().filter(g -> g.getId() == id).findFirst();
+//        return grade.orElse(null);
+//    }
+//
+//    /**
+//     * Adding new grade to grades list
+//     *
+//     * @param grade new grade to add
+//     * @return true if operation succeeded, false otherwise
+//     */
+//    public static boolean addGrade(Grade grade)
+//    {
+//        return getGrades().add(grade);
+//    }
 
-    /**
-     * Adding new grade to grades list
-     *
-     * @param grade new grade to add
-     * @return true if operation succeeded, false otherwise
-     */
-    public static boolean addGrade(Grade grade)
-    {
-        return getGrades().add(grade);
-    }
+//    /**
+//     * Updating grade.
+//     *
+//     * @param grade new grade
+//     * @return true if operation succeeded, false otherwise
+//     */
+//    public static boolean updateGrade(Grade grade)
+//    {
+//        int index = getGrades().indexOf(getGradeById(grade.getId()));
+//        if (index != -1)
+//        {
+//            getGrades().set(index, grade);
+//            return true;
+//        }
+//
+//        return false;
+//    }
 
-    /**
-     * Updating grade.
-     *
-     * @param grade new grade
-     * @return true if operation succeeded, false otherwise
-     */
-    public static boolean updateGrade(Grade grade)
-    {
-        int index = getGrades().indexOf(getGradeById(grade.getId()));
-        if (index != -1)
-        {
-            getGrades().set(index, grade);
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Removing grade if exists.
-     *
-     * @param id id of removing grade
-     * @return true if operation succeeded, false otherwise
-     */
-    public static boolean removeGradeById(int id)
-    {
-        if (getGradeById(id) != null)
-        {
-            getGrades().remove(getGradeById(id));
-            return true;
-        } else
-            return false;
-    }
+//    /**
+//     * Removing grade if exists.
+//     *
+//     * @param id id of removing grade
+//     * @return true if operation succeeded, false otherwise
+//     */
+//    public static boolean removeGradeById(int id)
+//    {
+//        if (getGradeById(id) != null)
+//        {
+//            getGrades().remove(getGradeById(id));
+//            return true;
+//        } else
+//            return false;
+//    }
 
     /**
      * Getting course by id.
@@ -248,23 +240,6 @@ public class Data
         if (getCourseById(id) != null)
         {
             getCourses().remove(getCourseById(id));
-            return true;
-        } else
-            return false;
-    }
-
-    /**
-     * Removing student grade
-     *
-     * @param id      id of removing grade
-     * @param student student from whom we want delete the grade
-     * @return true if operation succeeded, false otherwise
-     */
-    public static boolean removeStudentGradeByIndex(Student student, int id)
-    {
-        if (getGradeById(id) != null)
-        {
-            student.getGrades().remove(getGradeById(id));
             return true;
         } else
             return false;
