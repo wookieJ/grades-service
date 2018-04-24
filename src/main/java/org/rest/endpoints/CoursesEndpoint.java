@@ -3,6 +3,8 @@ package org.rest.endpoints;
 import jersey.repackaged.com.google.common.collect.Lists;
 import org.rest.data.Data;
 import org.rest.model.Course;
+import org.rest.service.CourseService;
+import org.rest.service.StudentService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
@@ -46,12 +48,16 @@ public class CoursesEndpoint
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response addCourse(Course courses)
+    public Response addCourse(Course course)
     {
-        if (courses != null)
+        System.out.println(course);
+        if (course != null)
         {
-            Course newCourse = new Course(courses);
-            Data.addCourse(newCourse);
+            Course newCourse = new Course(course);
+
+            CourseService courseService = new CourseService();
+            courseService.addCourse(newCourse);
+
             String result = "Course " + newCourse + " added!\n";
 
             // creating response

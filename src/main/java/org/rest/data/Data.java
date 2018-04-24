@@ -1,5 +1,8 @@
 package org.rest.data;
 
+import com.mongodb.MongoClient;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
 import org.rest.model.Course;
 import org.rest.model.Grade;
 import org.rest.model.Student;
@@ -8,26 +11,36 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.*;
 
 @XmlRootElement
-public class Data
-{
+public class Data {
+    // MongoDB
+    private static MongoClient mongoClient = new MongoClient("localhost", 8004);
+    private static Morphia morphia = new Morphia();
+    private static Datastore datastore = morphia.createDatastore(mongoClient, "students-grades");
+//    private final Query<Grade> query = datastore.createQuery(Grade.class);
+//    private final List<Grade> employees = query.asList();
+
     private static List<Student> students = new ArrayList<>();
     private static List<Course> courses = new ArrayList<>();
 
-    public static List<Student> getStudents()
-    {
+    public static List<Student> getStudents() {
         return students;
     }
 
-    public static List<Course> getCourses()
-    {
+    public static List<Course> getCourses() {
         return courses;
+    }
+
+    public static void initialize() {
+        morphia.mapPackage("org.rest.data");
+        datastore.ensureIndexes();
     }
 
     /**
      * Loading example data to lists
      */
-    public static void loadData()
-    {
+    public static void loadData() {
+
+
         Course course1 = new Course("Automatyka", "dr Adam Nowicki");
         Course course2 = new Course("Elektronika", "dr Piotr Zieliński");
         Course course3 = new Course("WF", "mgr Alina Buk");
@@ -60,13 +73,12 @@ public class Data
         student2.setGrades(student2Grades);
         student3.setGrades(student3Grades);
 
-        students.add(student1);
-        students.add(student2);
-        students.add(student3);
+        datastore.save(student1);
+        datastore.save(student2);
+        datastore.save(student3);
     }
 
-    private static Date getDate(int year, int month, int day)
-    {
+    public static Date getDate(int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
@@ -84,8 +96,7 @@ public class Data
      * @param index unique index value
      * @return student or null if doesn't exist
      */
-    public static Student getStudentByIndex(int index)
-    {
+    public static Student getStudentByIndex(int index) {
         Optional<Student> student = getStudents().stream().filter(b -> b.getIndex() == index).findFirst();
         return student.orElse(null);
     }
@@ -96,9 +107,9 @@ public class Data
      * @param student new student
      * @return true if operation succeeded, false otherwise
      */
-    public static boolean addStudent(Student student)
-    {
-        return students.add(student);
+    public static boolean addStudent(Student student) {
+        datastore.save(student);
+        return false;
     }
 
     /**
@@ -107,14 +118,12 @@ public class Data
      * @param student new student to update
      * @return true if operation succeeded, false otherwise
      */
-    public static boolean updateStudent(Student student)
-    {
+    public static boolean updateStudent(Student student) {
 //        System.out.println(student.getIndex());
         Student st = getStudentByIndex(student.getIndex());
 //        System.out.println(st);
         int index = getStudents().indexOf(st);
-        if (index != -1)
-        {
+        if (index != -1) {
 //            System.out.println(index);
             // prevent from adding null list
             if (student.getGrades() == null)
@@ -132,10 +141,8 @@ public class Data
      * @param index student's index number
      * @return true if operation succeeded, false otherwise
      */
-    public static boolean removeStudentByIndex(int index)
-    {
-        if (getStudentByIndex(index) != null)
-        {
+    public static boolean removeStudentByIndex(int index) {
+        if (getStudentByIndex(index) != null) {
             getStudents().remove(getStudentByIndex(index));
             return true;
         } else
@@ -205,8 +212,7 @@ public class Data
      * @param id id of looking course
      * @return course if exists or null if doesn't
      */
-    public static Course getCourseById(int id)
-    {
+    public static Course getCourseById(int id) {
         Optional<Course> course = getCourses().stream().filter(c -> c.getId() == id).findFirst();
         return course.orElse(null);
     }
@@ -217,8 +223,7 @@ public class Data
      * @param course new course to add
      * @return true if operation succeeded, false otherwise
      */
-    public static boolean addCourse(Course course)
-    {
+    public static boolean addCourse(Course course) {
         return getCourses().add(course);
     }
 
@@ -229,11 +234,9 @@ public class Data
      * @param id     id of updating course
      * @return true if operation succeeded, false otherwise
      */
-    public static boolean updateCourse(Course course, int id)
-    {
+    public static boolean updateCourse(Course course, int id) {
         int index = getCourses().indexOf(getCourseById(id));
-        if (index != -1)
-        {
+        if (index != -1) {
             getCourses().set(index, course);
             return true;
         }
@@ -247,10 +250,8 @@ public class Data
      * @param id id of removing course
      * @return true if operation succeeded, false otherwise
      */
-    public static boolean removeCourseById(int id)
-    {
-        if (getCourseById(id) != null)
-        {
+    public static boolean removeCourseById(int id) {
+        if (getCourseById(id) != null) {
             getCourses().remove(getCourseById(id));
             return true;
         } else

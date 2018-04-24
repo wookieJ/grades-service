@@ -1,7 +1,12 @@
 package org.rest.model;
 
+import org.bson.types.ObjectId;
 import org.glassfish.jersey.linking.InjectLink;
 import org.glassfish.jersey.linking.InjectLinks;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.Reference;
 
 import javax.ws.rs.core.Link;
 import javax.xml.bind.annotation.*;
@@ -11,11 +16,9 @@ import java.util.List;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Grade
-{
-    @InjectLinks({
-            @InjectLink(value = "/students/{studentIndex}/grades/{id}", rel = "self"),
-            @InjectLink(value = "/students/{studentIndex}/grades", rel = "parent")})
+@Entity
+public class Grade {
+    @InjectLinks({@InjectLink(value = "/students/{studentIndex}/grades/{id}", rel = "self"), @InjectLink(value = "/students/{studentIndex}/grades", rel = "parent")})
     @XmlElement(name = "link")
     @XmlElementWrapper(name = "links")
     @XmlJavaTypeAdapter(Link.JaxbAdapter.class)
@@ -24,73 +27,63 @@ public class Grade
     @XmlTransient
     private int studentIndex;
 
+    @Id
     private int id;
     private float value;
+    // @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="CET")
     private Date date;
+    @Reference
     private Course course;
-
     private static int idNumber = 0;
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public int getStudentIndex()
-    {
+    public int getStudentIndex() {
         return studentIndex;
     }
 
-    public void setStudentIndex(int studentIndex)
-    {
+    public void setStudentIndex(int studentIndex) {
         this.studentIndex = studentIndex;
     }
 
-    public float getValue()
-    {
+    public float getValue() {
         return value;
     }
 
-    public void setValue(float value)
-    {
+    public void setValue(float value) {
         this.value = (float) (0.5 * Math.round(value * 2));
     }
 
-    public Date getDate()
-    {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Date date)
-    {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public Course getCourse()
-    {
+    public Course getCourse() {
         return course;
     }
 
-    public void setCourse(Course course)
-    {
+    public void setCourse(Course course) {
         this.course = course;
     }
 
-    public Grade(float value, Date date, Course course)
-    {
+    public Grade(float value, Date date, Course course) {
         this.id = idNumber++;
         this.value = value;
         this.date = date;
         this.course = course;
     }
 
-    public Grade(Grade grade)
-    {
+    public Grade(Grade grade) {
         this.studentIndex = grade.studentIndex;
         this.id = idNumber++;
         this.value = grade.getValue();
@@ -98,13 +91,11 @@ public class Grade
         this.course = grade.getCourse();
     }
 
-    public Grade()
-    {
+    public Grade() {
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Grade{" + "id=" + id + ", studentIndex=" + studentIndex + ", value=" + value + ", date=" + date + ", course=" + course + '}';
     }
 }

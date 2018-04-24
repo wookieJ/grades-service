@@ -2,8 +2,8 @@ package org.rest.endpoints;
 
 import jersey.repackaged.com.google.common.collect.Lists;
 import org.rest.data.Data;
-import org.rest.model.Grade;
 import org.rest.model.Student;
+import org.rest.service.StudentService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
@@ -12,21 +12,26 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/students")
-public class StudentsEndpoint
-{
+public class StudentsEndpoint {
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getAllStudents()
-    {
+    public Response getAllStudents() {
+        System.out.println("GET");
+        StudentService studentService = new StudentService();
+        List<Student> students = studentService.getAllStudents();
+        System.out.println("getAll() [" + students.size() + "] : " + students);
+        if (students == null) {
+            System.out.println("NULL!!!!!");
+            return null;
+        }
         // checking if student list is empty
-        if (Data.getStudents().size() == 0)
+        if (students.size() == 0)
             return Response.status(Response.Status.NOT_FOUND).entity("No students").build();
 
-        List<Student> studentList = Data.getStudents();
-
-        GenericEntity<List<Student>> entity = new GenericEntity<List<Student>>(Lists.newArrayList(studentList))
-        {
+        GenericEntity<List<Student>> entity = new GenericEntity<List<Student>>(Lists.newArrayList(students)) {
         };
+
+        System.out.println(students);
         // creating response
         return Response.status(Response.Status.OK).entity(entity).build();
     }
@@ -34,8 +39,7 @@ public class StudentsEndpoint
     @GET
     @Path("/{index}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getStudentByIndex(@PathParam("index") int index)
-    {
+    public Response getStudentByIndex(@PathParam("index") int index) {
         // getting student by it's index
         Student searchedStudent = Data.getStudentByIndex(index);
 
@@ -48,15 +52,16 @@ public class StudentsEndpoint
     }
 
 
-
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response addStudents(Student students)
-    {
-        if (students != null)
-        {
-            Student newStudent = new Student(students);
-            Data.addStudent(newStudent);
+    public Response addStudents(Student student) {
+        System.out.println(student);
+        if (student != null) {
+            Student newStudent = new Student(student);
+
+            StudentService studentService = new StudentService();
+            studentService.addStudent(newStudent);
+
             String result = "Student " + newStudent + " added!\n";
 
             // creating response
@@ -70,8 +75,7 @@ public class StudentsEndpoint
     @PUT
     @Path("/{index}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response updateStudent(Student student, @PathParam("index") int index)
-    {
+    public Response updateStudent(Student student, @PathParam("index") int index) {
         // TODO - Szukam na liście czy istnieje student z danym indeksem, jak tak to robię studentsList.set(index, student) i zwracam 204, a jak jeszcze nie istnieje to robię .add(student) i zwracam 201
 
         // getting student by it's index
@@ -82,7 +86,7 @@ public class StudentsEndpoint
             return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
 
         // updating student
-        student.setIndex(index);
+//        student.setIndex(index);
         Data.updateStudent(student);
         String result = "Student " + student + " updated!";
 
@@ -92,8 +96,7 @@ public class StudentsEndpoint
 
     @DELETE
     @Path("/{index}")
-    public Response deleteStudent(@PathParam("index") int index)
-    {
+    public Response deleteStudent(@PathParam("index") int index) {
         // getting student by it's index
         Student searchedStudent = Data.getStudentByIndex(index);
 
