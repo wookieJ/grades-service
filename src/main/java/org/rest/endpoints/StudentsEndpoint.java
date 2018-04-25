@@ -1,7 +1,10 @@
 package org.rest.endpoints;
 
 import jersey.repackaged.com.google.common.collect.Lists;
+import org.rest.model.Course;
+import org.rest.model.Grade;
 import org.rest.model.Student;
+import org.rest.service.CourseService;
 import org.rest.service.StudentService;
 
 import javax.ws.rs.*;
@@ -50,6 +53,17 @@ public class StudentsEndpoint {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addStudents(Student student) {
         if (student != null) {
+            // checking if grade's course exists
+            CourseService courseService = new CourseService();
+            Course searchedCourse;
+
+            for(Grade grade: student.getGrades()) {
+                searchedCourse = courseService.getCourseByParameters(grade.getCourse().getName(), grade.getCourse().getLecturer());
+                if(searchedCourse == null){
+                    return Response.status(Response.Status.NOT_FOUND).entity("Grade's course not found").build();
+                }
+            }
+
             // TODO - czy potrzebne?
             Student newStudent = new Student(student);
 
@@ -76,6 +90,17 @@ public class StudentsEndpoint {
         // checking if student exists
         if (searchedStudent == null)
             return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
+
+        // checking if grade's course exists
+        CourseService courseService = new CourseService();
+        Course searchedCourse;
+
+        for(Grade grade: student.getGrades()) {
+            searchedCourse = courseService.getCourseByParameters(grade.getCourse().getName(), grade.getCourse().getLecturer());
+            if(searchedCourse == null){
+                return Response.status(Response.Status.NOT_FOUND).entity("Grade's course not found").build();
+            }
+        }
 
         // updating student
         boolean status = studentService.updateStudent(student);
