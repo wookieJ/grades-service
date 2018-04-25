@@ -1,6 +1,9 @@
 package org.rest.dao;
 
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 import org.rest.model.Course;
+import org.rest.model.Student;
 
 import java.util.List;
 
@@ -9,19 +12,26 @@ import java.util.List;
  */
 public class MongoCourseDAO extends MongoGenericDAO<Course, Integer> {
     @Override
-    public Course read(Integer primaryKey) {
-        // TODO - napisać logikę
-        return null;
+    public Course read(Integer id) {
+        return datastore.createQuery(Course.class).field("id").equal(id).get();
     }
 
     @Override
     public boolean update(Course updateObject) {
-        // TODO - uzupełnić
-        return false;
+        final Query<Course> courseToUpdate = datastore.createQuery(Course.class).field("id").equal(updateObject.getId());
+        final UpdateOperations<Course> updateOperations = datastore.createUpdateOperations(Course.class)
+                .set("name", updateObject.getName())
+                .set("lecturer", updateObject.getLecturer());
+
+        datastore.update(courseToUpdate, updateOperations);
+        // TODO - check if succeeded
+        return true;
     }
 
     @Override
     public List<Course> getAll() {
-        return null;
+        final Query<Course> query = datastore.createQuery(Course.class);
+        final List<Course> courses = query.asList();
+        return courses;
     }
 }

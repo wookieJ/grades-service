@@ -25,7 +25,8 @@ public class MongoStudentDAO extends MongoGenericDAO<Student, Integer> {
         if(updateObject.getGrades() != null && !updateObject.getGrades().isEmpty())
             updateOperations.set("grades", updateObject.getGrades());
         datastore.update(studentToUpdate, updateOperations);
-        return false;
+        // TODO - check if succeeded
+        return true;
     }
 
     @Override

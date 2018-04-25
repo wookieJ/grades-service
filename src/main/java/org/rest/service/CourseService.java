@@ -4,9 +4,17 @@ import org.rest.dao.DAOFactory;
 import org.rest.dao.MongoCourseDAO;
 import org.rest.model.Course;
 
-// TODO - Komentarz
+import java.util.List;
+
+// TODO - Komentarze
 public class CourseService {
-    public void addCourse(Course course) {
+    public List<Course> getAllCourses() {
+        DAOFactory factory = DAOFactory.getDAOFactory();
+        MongoCourseDAO mongoCourseDAO = factory.getMongoCourseDAO();
+        return mongoCourseDAO.getAll();
+    }
+
+    public Course addCourse(Course course) {
         IdGeneratorService generator = new IdGeneratorService();
         int newId = generator.generateCourseId();
         course.setId(newId);
@@ -15,5 +23,25 @@ public class CourseService {
         course.setId(newId);
         MongoCourseDAO mongoCourseDAO = factory.getMongoCourseDAO();
         mongoCourseDAO.create(course);
+
+        return course;
+    }
+
+    public Course getCourse(int id) {
+        DAOFactory factory = DAOFactory.getDAOFactory();
+        MongoCourseDAO mongoCourseDAO = factory.getMongoCourseDAO();
+        return mongoCourseDAO.read(id);
+    }
+
+    public boolean updateCourse(Course course) {
+        DAOFactory factory = DAOFactory.getDAOFactory();
+        MongoCourseDAO mongoCourseDAO = factory.getMongoCourseDAO();
+        return mongoCourseDAO.update(course);
+    }
+
+    public boolean deleteCourse(int id) {
+        DAOFactory factory = DAOFactory.getDAOFactory();
+        MongoCourseDAO mongoCourseDAO = factory.getMongoCourseDAO();
+        return mongoCourseDAO.delete(id);
     }
 }

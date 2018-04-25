@@ -94,7 +94,8 @@ public class GradesEndpoint {
         // checking if grade is a null
         if (grade != null) {
             // getting student by it's index
-            Student searchedStudent = Data.getStudentByIndex(index);
+            StudentService studentService = new StudentService();
+            Student searchedStudent = studentService.getStudent(index);
 
             // checking if student exists
             if (searchedStudent == null) {
@@ -112,6 +113,7 @@ public class GradesEndpoint {
             grade.setId(id);
             grade.setStudentIndex(searchedStudent.getIndex());
             searchedStudent.updateStudentGrade(grade);
+            studentService.updateStudent(searchedStudent);
             String result = "Student grade " + grade + " updated!";
 
             // creating response
@@ -124,7 +126,8 @@ public class GradesEndpoint {
     @Path("/{id}")
     public Response deleteStudentGrade(@PathParam("id") int id) {
         // getting student by it's index
-        Student searchedStudent = Data.getStudentByIndex(index);
+        StudentService studentService = new StudentService();
+        Student searchedStudent = studentService.getStudent(index);
 
         // checking if student exists
         if (searchedStudent == null)
@@ -137,6 +140,7 @@ public class GradesEndpoint {
 
         // removing student grade
         searchedStudent.removeStudentGradeById(id);
+        studentService.updateStudent(searchedStudent);
         String result = "Student grade " + searchedGrade + " deleted!";
 
         // creating response

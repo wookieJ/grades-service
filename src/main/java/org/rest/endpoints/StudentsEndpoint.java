@@ -45,12 +45,12 @@ public class StudentsEndpoint {
         return Response.status(Response.Status.OK).entity(searchedStudent).build();
     }
 
-
+    // TODO - Błąd gdy chcemy dodac studenta bez pola <grades>
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addStudents(Student student) {
-        System.out.println(student);
         if (student != null) {
+            // TODO - czy potrzebne?
             Student newStudent = new Student(student);
 
             StudentService studentService = new StudentService();
@@ -79,7 +79,7 @@ public class StudentsEndpoint {
             return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
 
         // updating student
-        studentService.updateStudent(student);
+        boolean status = studentService.updateStudent(student);
         String result = "Student " + student + " updated!";
 
         // creating response

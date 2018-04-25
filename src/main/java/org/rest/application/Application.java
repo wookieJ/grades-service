@@ -34,20 +34,6 @@ public class Application {
 
     public static void main(String[] args) {
         try {
-            // loading students to static list
-//            Data.initialize();
-//            Data.loadData();
-
-//            StudentService studentService = new StudentService();
-//            Course course1 = new Course("Automatyka", "dr Adam Nowicki");
-//            Grade grade1 = new Grade(4, new Date(), course1);
-//            grade1.setStudentIndex(0);
-//            List<Grade> student1Grades = new ArrayList<>();
-//            student1Grades.add(grade1);
-//            Student newStudent = new Student("Janek", "Nowak", Data.getDate(1995, 11, 14), null);
-//            newStudent.setGrades(student1Grades);
-//            studentService.addStudent(newStudent);
-
             // starting server
             startServer();
             System.out.println(String.format("Homework app started at " + BASE_URI));

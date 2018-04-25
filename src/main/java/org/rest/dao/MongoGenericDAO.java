@@ -22,14 +22,16 @@ public abstract class MongoGenericDAO<T, PK extends Serializable> {
     private Morphia morphia = new Morphia();
     protected Datastore datastore = morphia.createDatastore(mongoClient, "students-grades");
 
-    public T create(T newObject) {
-        datastore.save(newObject);
-        return newObject;
-    }
+    public abstract List<T> getAll();
 
     public abstract T read(PK primaryKey);
 
     public abstract boolean update(T updateObject);
+
+    public T create(T newObject) {
+        datastore.save(newObject);
+        return newObject;
+    }
 
     public boolean delete(PK primaryKey) {
         datastore.delete(read(primaryKey));
@@ -38,6 +40,4 @@ public abstract class MongoGenericDAO<T, PK extends Serializable> {
         else
             return false;
     }
-
-    public abstract List<T> getAll();
 }
