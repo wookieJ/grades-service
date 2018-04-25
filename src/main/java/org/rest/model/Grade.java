@@ -93,7 +93,7 @@ public class Grade {
         this.id = idNumber++;
         this.value = value;
         this.date = date;
-//        this.course = course;
+        this.course = course;
     }
 
     public Grade(Grade grade) {
@@ -101,7 +101,7 @@ public class Grade {
         this.id = idNumber++;
         this.value = grade.getValue();
         this.date = grade.getDate();
-//        this.course = grade.getCourse();
+        this.course = grade.getCourse();
     }
 
     public Grade() {

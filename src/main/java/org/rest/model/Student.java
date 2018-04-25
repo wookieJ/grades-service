@@ -12,6 +12,7 @@ import org.mongodb.morphia.annotations.Indexed;
 import javax.ws.rs.core.Link;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -54,6 +55,9 @@ public class Student {
 
     public void setIndex(int index) {
         this.index = index;
+        for(Grade g: grades){
+            g.setStudentIndex(index);
+        }
     }
 
     public String getFirstName() {
@@ -107,6 +111,7 @@ public class Student {
     }
 
     public Student() {
+        this.grades = new ArrayList<>();
     }
 
     @Override

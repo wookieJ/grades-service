@@ -49,6 +49,7 @@ public class StudentsEndpoint {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addStudents(Student student) {
+        System.out.println(student);
         if (student != null) {
             Student newStudent = new Student(student);
 

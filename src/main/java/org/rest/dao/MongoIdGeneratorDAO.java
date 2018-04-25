@@ -11,11 +11,12 @@ public class MongoIdGeneratorDAO extends MongoGenericDAO<IdGenerator, Integer> {
         int id = 0;
         Query<IdGenerator> query = super.datastore.find(IdGenerator.class);
         if (query.countAll() == 0) {
-            super.create(new IdGenerator(0, 0));
+            super.create(new IdGenerator(0, 0, 0));
         } else {
             int newStudentId = query.get().getStudentId() + 1;
             int courseId = query.get().getCourseId();
-            IdGenerator newIdGenerator = new IdGenerator(newStudentId, courseId);
+            int gradeId = query.get().getGradeId();
+            IdGenerator newIdGenerator = new IdGenerator(newStudentId, courseId, gradeId);
 
             // TODO - findAndModify
             super.datastore.findAndDelete(query);
@@ -30,17 +31,38 @@ public class MongoIdGeneratorDAO extends MongoGenericDAO<IdGenerator, Integer> {
         int id = 0;
         Query<IdGenerator> query = super.datastore.find(IdGenerator.class);
         if (query.countAll() == 0) {
-            super.create(new IdGenerator(0, 0));
+            super.create(new IdGenerator(0, 0, 0));
         } else {
             int studentId = query.get().getStudentId();
             int newCourseId = query.get().getCourseId() + 1;
-            IdGenerator newIdGenerator = new IdGenerator(studentId, newCourseId);
+            int gradeId = query.get().getGradeId();
+            IdGenerator newIdGenerator = new IdGenerator(studentId, newCourseId, gradeId);
 
             // TODO - findAndModify
             super.datastore.findAndDelete(query);
             super.create(newIdGenerator);
 
             id = newCourseId;
+        }
+        return id;
+    }
+
+    public int generateGradeId() {
+        int id = 0;
+        Query<IdGenerator> query = super.datastore.find(IdGenerator.class);
+        if (query.countAll() == 0) {
+            super.create(new IdGenerator(0, 0, 0));
+        } else {
+            int studentId = query.get().getStudentId();
+            int courseId = query.get().getCourseId();
+            int newGradeId = query.get().getGradeId() + 1;
+            IdGenerator newIdGenerator = new IdGenerator(studentId, courseId, newGradeId);
+
+            // TODO - findAndModify
+            super.datastore.findAndDelete(query);
+            super.create(newIdGenerator);
+
+            id = newGradeId;
         }
         return id;
     }

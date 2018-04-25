@@ -22,6 +22,8 @@ public class MongoStudentDAO extends MongoGenericDAO<Student, Integer> {
                 .set("firstName", updateObject.getFirstName())
                 .set("lastName", updateObject.getLastName())
                 .set("birthday", updateObject.getBirthday());
+        if(updateObject.getGrades() != null && !updateObject.getGrades().isEmpty())
+            updateOperations.set("grades", updateObject.getGrades());
         datastore.update(studentToUpdate, updateOperations);
         return false;
     }

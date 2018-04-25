@@ -6,6 +6,7 @@ import org.mongodb.morphia.annotations.Entity;
 public class IdGenerator {
     private int studentId;
     private int courseId;
+    private int gradeId;
 
     public int getStudentId() {
         return studentId;
@@ -23,16 +24,25 @@ public class IdGenerator {
         this.courseId = courseId;
     }
 
+    public int getGradeId() {
+        return gradeId;
+    }
+
+    public void setGradeId(int gradeId) {
+        this.gradeId = gradeId;
+    }
+
     public IdGenerator() {
     }
 
-    public IdGenerator(int studentId, int courseId) {
+    public IdGenerator(int studentId, int courseId, int gradeId) {
         this.studentId = studentId;
         this.courseId = courseId;
+        this.gradeId = gradeId;
     }
 
     @Override
     public String toString() {
-        return "IdGenerator{" + "studentId=" + studentId + ", courseId=" + courseId + '}';
+        return "IdGenerator{" + "studentId=" + studentId + ", courseId=" + courseId + ", gradeId=" + gradeId + '}';
     }
 }

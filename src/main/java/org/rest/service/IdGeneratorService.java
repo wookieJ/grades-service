@@ -28,4 +28,15 @@ public class IdGeneratorService {
         MongoIdGeneratorDAO mongoIdGeneratorDAO = factory.getMongoIdGeneratorDAO();
         return mongoIdGeneratorDAO.generateCourseId();
     }
+
+    /**
+     * Generatin new unique grade id
+     *
+     * @return new unique id value
+     */
+    public int generateGradeId() {
+        DAOFactory factory = DAOFactory.getDAOFactory();
+        MongoIdGeneratorDAO mongoIdGeneratorDAO = factory.getMongoIdGeneratorDAO();
+        return mongoIdGeneratorDAO.generateGradeId();
+    }
 }
