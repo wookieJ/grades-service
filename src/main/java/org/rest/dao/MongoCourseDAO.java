@@ -34,4 +34,9 @@ public class MongoCourseDAO extends MongoGenericDAO<Course, Integer> {
         final List<Course> courses = query.asList();
         return courses;
     }
+
+    public Course readByParameters(String name, String lecturer) {
+        return datastore.createQuery(Course.class).field("name").equal(name)
+                .field("lecturer").equal(lecturer).get();
+    }
 }

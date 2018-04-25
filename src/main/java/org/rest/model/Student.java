@@ -29,6 +29,7 @@ public class Student {
     private int index;
     private String firstName;
     private String lastName;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "CET")
     private Date birthday;
 

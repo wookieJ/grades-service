@@ -62,9 +62,8 @@ public class StudentsEndpoint {
             Response response = Response.status(Response.Status.CREATED).header("Location", "/students/" + newStudent.getIndex()).entity(result).build();
             return response;
         } else
-            return Response.status(Response.Status.NO_CONTENT).entity("Students cannot be null!").build();
+            return Response.status(Response.Status.NO_CONTENT).entity("Student cannot be null!").build();
     }
-
 
     @PUT
     @Path("/{index}")

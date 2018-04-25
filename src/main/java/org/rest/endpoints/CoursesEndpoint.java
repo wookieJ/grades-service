@@ -52,7 +52,7 @@ public class CoursesEndpoint {
             Course newCourse = new Course(course);
 
             CourseService courseService = new CourseService();
-           newCourse = courseService.addCourse(newCourse);
+            newCourse = courseService.addCourse(newCourse);
 
             String result = "Course " + newCourse + " added!\n";
 

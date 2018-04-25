@@ -32,6 +32,11 @@ public class CourseService {
         MongoCourseDAO mongoCourseDAO = factory.getMongoCourseDAO();
         return mongoCourseDAO.read(id);
     }
+    public Course getCourseByParameters(String name, String lecturer) {
+        DAOFactory factory = DAOFactory.getDAOFactory();
+        MongoCourseDAO mongoCourseDAO = factory.getMongoCourseDAO();
+return mongoCourseDAO.readByParameters(name, lecturer);
+    }
 
     public boolean updateCourse(Course course) {
         DAOFactory factory = DAOFactory.getDAOFactory();

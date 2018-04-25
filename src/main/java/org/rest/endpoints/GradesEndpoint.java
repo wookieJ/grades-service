@@ -2,8 +2,10 @@ package org.rest.endpoints;
 
 import jersey.repackaged.com.google.common.collect.Lists;
 import org.rest.data.Data;
+import org.rest.model.Course;
 import org.rest.model.Grade;
 import org.rest.model.Student;
+import org.rest.service.CourseService;
 import org.rest.service.IdGeneratorService;
 import org.rest.service.StudentService;
 
@@ -74,6 +76,12 @@ public class GradesEndpoint {
             if (searchedStudent == null)
                 return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
 
+            CourseService courseService = new CourseService();
+            Course searchedCourse = courseService.getCourseByParameters(grade.getCourse().getName(), grade.getCourse().getLecturer());
+
+            if(searchedCourse == null)
+                return Response.status(Response.Status.NOT_FOUND).entity("Grade's course not found").build();
+
             IdGeneratorService generator = new IdGeneratorService();
             grade.setId(generator.generateGradeId());
             grade.setStudentIndex(searchedStudent.getIndex());
@@ -109,6 +117,13 @@ public class GradesEndpoint {
             if (searchedGrade == null) {
                 return Response.status(Response.Status.NOT_FOUND).entity("Grade not found").build();
             }
+
+            // checking if grade's course exists
+            CourseService courseService = new CourseService();
+            Course searchedCourse = courseService.getCourseByParameters(grade.getCourse().getName(), grade.getCourse().getLecturer());
+
+            if(searchedCourse == null)
+                return Response.status(Response.Status.NOT_FOUND).entity("Grade's course not found").build();
 
             grade.setId(id);
             grade.setStudentIndex(searchedStudent.getIndex());
