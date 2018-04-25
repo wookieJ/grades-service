@@ -17,11 +17,11 @@ import java.util.List;
 import java.util.Optional;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 @Entity("students")
 public class Student {
     @Id
-    @XmlJavaTypeAdapter(ObjectIdJaxbAdapter.class)
+    @XmlTransient
+//    @XmlJavaTypeAdapter(ObjectIdJaxbAdapter.class)
     private ObjectId id;
 
     @Indexed(name = "index", unique = true)
@@ -31,7 +31,6 @@ public class Student {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "CET")
     private Date birthday;
 
-    @XmlTransient
     private List<Grade> grades;
 
     @InjectLinks({@InjectLink(value = "/students/{index}", rel = "self"), @InjectLink(resource = org.rest.endpoints.StudentsEndpoint.class, rel = "parent"), @InjectLink(resource = org.rest.endpoints.GradesEndpoint.class, rel = "grades")})
@@ -40,6 +39,7 @@ public class Student {
     @XmlJavaTypeAdapter(Link.JaxbAdapter.class)
     List<Link> links;
 
+    @XmlTransient
     public ObjectId getId() {
         return id;
     }

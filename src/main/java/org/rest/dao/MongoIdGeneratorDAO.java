@@ -52,6 +52,12 @@ public class MongoIdGeneratorDAO extends MongoGenericDAO<IdGenerator, Integer> {
     }
 
     @Override
+    public boolean update(IdGenerator updateObject) {
+        // TODO - uzupełnić
+        return false;
+    }
+
+    @Override
     public List<IdGenerator> getAll() {
         final Query<IdGenerator> query = super.datastore.createQuery(IdGenerator.class);
         final List<IdGenerator> ids = query.asList();

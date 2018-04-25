@@ -1,7 +1,6 @@
 package org.rest.endpoints;
 
 import jersey.repackaged.com.google.common.collect.Lists;
-import org.rest.data.Data;
 import org.rest.model.Student;
 import org.rest.service.StudentService;
 
@@ -70,18 +69,16 @@ public class StudentsEndpoint {
     @Path("/{index}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response updateStudent(Student student, @PathParam("index") int index) {
-        // TODO - Szukam na liście czy istnieje student z danym indeksem, jak tak to robię studentsList.set(index, student) i zwracam 204, a jak jeszcze nie istnieje to robię .add(student) i zwracam 201
-
         // getting student by it's index
-        Student searchedStudent = Data.getStudentByIndex(index);
+        StudentService studentService = new StudentService();
+        Student searchedStudent = studentService.getStudent(index);
 
         // checking if student exists
         if (searchedStudent == null)
             return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
 
         // updating student
-//        student.setIndex(index);
-        Data.updateStudent(student);
+        studentService.updateStudent(student);
         String result = "Student " + student + " updated!";
 
         // creating response
@@ -92,17 +89,21 @@ public class StudentsEndpoint {
     @Path("/{index}")
     public Response deleteStudent(@PathParam("index") int index) {
         // getting student by it's index
-        Student searchedStudent = Data.getStudentByIndex(index);
+        StudentService studentService = new StudentService();
+        Student searchedStudent = studentService.getStudent(index);
 
         // checking if student exists
         if (searchedStudent == null)
             return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
 
         // updating student
-        Data.removeStudentByIndex(index);
-        String result = "Student " + searchedStudent + " deleted!";
+        boolean status = studentService.deleteStudent(index);
+        if (status == true) {
+            String result = "Student " + searchedStudent + " deleted!";
 
-        // creating response
-        return Response.status(Response.Status.OK).entity(result).build();
+            // creating response
+            return Response.status(Response.Status.OK).entity(result).build();
+        } else
+            return Response.status(Response.Status.CONFLICT).entity("Error, not deleted").build();
     }
 }

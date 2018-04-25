@@ -3,6 +3,8 @@ package org.rest.dao;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateResults;
 import org.rest.model.Student;
 
 import java.io.Serializable;
@@ -27,14 +29,14 @@ public abstract class MongoGenericDAO<T, PK extends Serializable> {
 
     public abstract T read(PK primaryKey);
 
-    public boolean update(T updateObject) {
-//        return datastore.createQuery(Student.class).field("index").equal(index).get();
-//        datastore.update();
-        return false;
-    }
+    public abstract boolean update(T updateObject);
 
     public boolean delete(PK primaryKey) {
-        return false;
+        datastore.delete(read(primaryKey));
+        if(read(primaryKey) == null)
+            return true;
+        else
+            return false;
     }
 
     public abstract List<T> getAll();

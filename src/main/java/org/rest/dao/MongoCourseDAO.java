@@ -15,6 +15,12 @@ public class MongoCourseDAO extends MongoGenericDAO<Course, Integer> {
     }
 
     @Override
+    public boolean update(Course updateObject) {
+        // TODO - uzupełnić
+        return false;
+    }
+
+    @Override
     public List<Course> getAll() {
         return null;
     }

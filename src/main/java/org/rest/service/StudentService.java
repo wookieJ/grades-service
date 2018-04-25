@@ -62,4 +62,16 @@ public class StudentService {
         MongoStudentDAO mongoStudentDAO = factory.getMongoStudentDAO();
         return mongoStudentDAO.update(student);
     }
+
+    /**
+     * Deleting student by index
+     *
+     * @param index index of student we want to delete
+     * @return true if operation succeeded, false otherwise
+     */
+    public boolean deleteStudent(int index) {
+        DAOFactory factory = DAOFactory.getDAOFactory();
+        MongoStudentDAO mongoStudentDAO = factory.getMongoStudentDAO();
+        return mongoStudentDAO.delete(index);
+    }
 }
