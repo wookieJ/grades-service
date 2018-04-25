@@ -3,10 +3,10 @@ package org.rest.model;
 import org.bson.types.ObjectId;
 import org.glassfish.jersey.linking.InjectLink;
 import org.glassfish.jersey.linking.InjectLinks;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
-import org.rest.data.Data;
 
 import javax.ws.rs.core.Link;
 import javax.xml.bind.annotation.XmlElement;
@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.List;
 
 @XmlRootElement
-@Entity
+@Embedded
+@Entity("courses")
 public class Course {
     @InjectLinks({@InjectLink(value = "/courses/{id}", rel = "self"), @InjectLink(resource = org.rest.endpoints.CoursesEndpoint.class, rel = "parent")})
     @XmlElement(name = "link")
@@ -27,22 +28,20 @@ public class Course {
 
     @Id
     @XmlTransient
-//    @XmlJavaTypeAdapter(ObjectIdJaxbAdapter.class)
-    ObjectId idDb;
+    ObjectId _id;
 
     @Indexed
     private int id;
     private String name;
     private String lecturer;
-    private static int idNumber = 0;
 
     @XmlTransient
-    public ObjectId getIdDb() {
-        return idDb;
+    public ObjectId get_id() {
+        return _id;
     }
 
-    public void setIdDb(ObjectId idDb) {
-        this.idDb = idDb;
+    public void set_id(ObjectId _id) {
+        this._id = _id;
     }
 
     public int getId() {
@@ -70,13 +69,11 @@ public class Course {
     }
 
     public Course(String name, String lecturer) {
-        this.id = idNumber++;
         this.name = name;
         this.lecturer = lecturer;
     }
 
     public Course(Course course) {
-        this.id = idNumber++;
         this.name = course.getName();
         this.lecturer = course.getLecturer();
     }

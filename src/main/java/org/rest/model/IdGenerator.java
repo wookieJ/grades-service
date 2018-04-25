@@ -2,7 +2,7 @@ package org.rest.model;
 
 import org.mongodb.morphia.annotations.Entity;
 
-@Entity
+@Entity("ids")
 public class IdGenerator {
     private int studentId;
     private int courseId;

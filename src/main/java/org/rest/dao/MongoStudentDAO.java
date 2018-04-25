@@ -10,8 +10,13 @@ import java.util.List;
  */
 public class MongoStudentDAO extends MongoGenericDAO<Student, Integer> {
     @Override
+    public Student read(Integer index) {
+        return datastore.createQuery(Student.class).field("index").equal(index).get();
+    }
+
+    @Override
     public List<Student> getAll() {
-        final Query<Student> query = super.datastore.createQuery(Student.class);
+        final Query<Student> query = datastore.createQuery(Student.class);
         final List<Student> students = query.asList();
         return students;
     }

@@ -5,8 +5,9 @@ import org.rest.model.IdGenerator;
 
 import java.util.List;
 
+// TODO - komentarze
 public class MongoIdGeneratorDAO extends MongoGenericDAO<IdGenerator, Integer> {
-    public int incrementStudentId() {
+    public int generateStudentIndex() {
         int id = 0;
         Query<IdGenerator> query = super.datastore.find(IdGenerator.class);
         if (query.countAll() == 0) {
@@ -23,6 +24,31 @@ public class MongoIdGeneratorDAO extends MongoGenericDAO<IdGenerator, Integer> {
             id = newStudentId;
         }
         return id;
+    }
+
+    public int generateCourseId() {
+        int id = 0;
+        Query<IdGenerator> query = super.datastore.find(IdGenerator.class);
+        if (query.countAll() == 0) {
+            super.create(new IdGenerator(0, 0));
+        } else {
+            int studentId = query.get().getStudentId();
+            int newCourseId = query.get().getCourseId() + 1;
+            IdGenerator newIdGenerator = new IdGenerator(studentId, newCourseId);
+
+            // TODO - findAndModify
+            super.datastore.findAndDelete(query);
+            super.create(newIdGenerator);
+
+            id = newCourseId;
+        }
+        return id;
+    }
+
+    @Override
+    public IdGenerator read(Integer primaryKey) {
+        // TODO - napisać logikę
+        return null;
     }
 
     @Override

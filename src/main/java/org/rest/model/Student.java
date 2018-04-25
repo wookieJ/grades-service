@@ -1,12 +1,13 @@
 package org.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.types.ObjectId;
 import org.glassfish.jersey.linking.InjectLink;
 import org.glassfish.jersey.linking.InjectLinks;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
-import org.mongodb.morphia.annotations.Reference;
 
 import javax.ws.rs.core.Link;
 import javax.xml.bind.annotation.*;
@@ -17,22 +18,21 @@ import java.util.Optional;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-// TODO - @Entity("Students")
-@Entity
+@Entity("students")
 public class Student {
     @Id
-    @XmlTransient
-//    @XmlJavaTypeAdapter(ObjectIdJaxbAdapter.class
-    ObjectId id;
+    @XmlJavaTypeAdapter(ObjectIdJaxbAdapter.class)
+    private ObjectId id;
 
-    @Indexed
+    @Indexed(name = "index", unique = true)
     private int index;
     private String firstName;
     private String lastName;
-    private Date birthday; // @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="CET")
-    @Reference
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "CET")
+    private Date birthday;
+
+    @XmlTransient
     private List<Grade> grades;
-    private static int idNumber = 0;
 
     @InjectLinks({@InjectLink(value = "/students/{index}", rel = "self"), @InjectLink(resource = org.rest.endpoints.StudentsEndpoint.class, rel = "parent"), @InjectLink(resource = org.rest.endpoints.GradesEndpoint.class, rel = "grades")})
     @XmlElement(name = "link")
@@ -80,6 +80,9 @@ public class Student {
         this.birthday = birthday;
     }
 
+    @XmlElement(name = "grade")
+    @XmlElementWrapper(name = "grades")
+    @JsonProperty("grades")
     public List<Grade> getGrades() {
         return grades;
     }
@@ -89,15 +92,14 @@ public class Student {
     }
 
     public Student(String firstName, String lastName, Date birthday, List<Grade> grades) {
-        this.index = idNumber++;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
         this.grades = grades;
     }
 
+    // TODO - dodanie id oceny
     public Student(Student student) {
-        this.index = idNumber++;
         this.firstName = student.getFirstName();
         this.lastName = student.getLastName();
         this.birthday = student.getBirthday();

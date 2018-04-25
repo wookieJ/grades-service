@@ -14,7 +14,7 @@ import java.util.List;
  * @param <PK> Primary key that identify object in the database
  */
 public abstract class MongoGenericDAO<T, PK extends Serializable> {
-    // TODO - Singleton
+    // TODO - Singleton pattern implement
     private MongoClient mongoClient = new MongoClient("localhost", 8004);
     private Morphia morphia = new Morphia();
     protected Datastore datastore = morphia.createDatastore(mongoClient, "students-grades");
@@ -24,9 +24,7 @@ public abstract class MongoGenericDAO<T, PK extends Serializable> {
         return newObject;
     }
 
-    public T read(PK primaryKey) {
-        return null;
-    }
+    public abstract T read(PK primaryKey);
 
     public boolean update(T updateObject) {
         return false;
