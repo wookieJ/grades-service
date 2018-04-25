@@ -50,4 +50,16 @@ public class StudentService {
         MongoStudentDAO mongoStudentDAO = factory.getMongoStudentDAO();
         return mongoStudentDAO.read(index);
     }
+
+    /**
+     * Updating student in database
+     *
+     * @param student student we want to set
+     * @return true if operation succeeded, false otherwise
+     */
+    public boolean updateStudent(Student student) {
+        DAOFactory factory = DAOFactory.getDAOFactory();
+        MongoStudentDAO mongoStudentDAO = factory.getMongoStudentDAO();
+        return mongoStudentDAO.update(student);
+    }
 }

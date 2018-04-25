@@ -16,22 +16,16 @@ public class StudentsEndpoint {
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getAllStudents() {
-        System.out.println("GET");
         StudentService studentService = new StudentService();
         List<Student> students = studentService.getAllStudents();
-        System.out.println("getAll() [" + students.size() + "] : " + students);
-        if (students == null) {
-            System.out.println("NULL!!!!!");
-            return null;
-        }
+
         // checking if student list is empty
-        if (students.size() == 0)
+        if (students == null || students.size() == 0)
             return Response.status(Response.Status.NOT_FOUND).entity("No students").build();
 
         GenericEntity<List<Student>> entity = new GenericEntity<List<Student>>(Lists.newArrayList(students)) {
         };
 
-        System.out.println(students);
         // creating response
         return Response.status(Response.Status.OK).entity(entity).build();
     }
@@ -41,7 +35,8 @@ public class StudentsEndpoint {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getStudentByIndex(@PathParam("index") int index) {
         // getting student by it's index
-        Student searchedStudent = Data.getStudentByIndex(index);
+        StudentService studentService = new StudentService();
+        Student searchedStudent = studentService.getStudent(index);
 
         // checking if student exists
         if (searchedStudent == null)
@@ -55,7 +50,6 @@ public class StudentsEndpoint {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addStudents(Student student) {
-        System.out.println(student);
         if (student != null) {
             Student newStudent = new Student(student);
 
