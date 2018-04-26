@@ -2,13 +2,19 @@ package org.rest.endpoints;
 
 import jersey.repackaged.com.google.common.collect.Lists;
 import org.rest.model.Course;
+import org.rest.model.Grade;
+import org.rest.model.Student;
 import org.rest.service.CourseService;
+import org.rest.service.StudentService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Path("/courses")
 public class CoursesEndpoint {
@@ -88,7 +94,7 @@ public class CoursesEndpoint {
 
     @DELETE
     @Path("/{id}")
-    public Response deleteGrade(@PathParam("id") int id) {
+    public Response deleteCourse(@PathParam("id") int id) {
         // getting course by it's index
         CourseService courseService = new CourseService();
         Course searchedCourse = courseService.getCourse(id);
@@ -98,7 +104,25 @@ public class CoursesEndpoint {
             return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
         }
 
-        // updating course
+//        // updating course
+//        StudentService studentService = new StudentService();
+//        List<Student> students = studentService.getAllStudents();
+//
+//        // TODO - Zrobić na streamach ładniej!
+//        // Deleting grades with deleting course
+//        if(students != null && !students.isEmpty()){
+////            List<Student> filteredStudent = new ArrayList<>();
+//            for(Student st: students){
+//                for(int i=0 ; i<st.getGrades().size() ; i++) {//Grade gr: st.getGrades()) {
+//                    if(st.getGrades().get(i).getCourse().getId() == id) {
+////                        filteredStudent.add(st);
+//                        st.removeStudentGradeById(st.getGrades().get(i).getId());
+//                    }
+//                }
+//                studentService.updateStudent(st);
+//            }
+//        }
+
         boolean status = courseService.deleteCourse(id);
         if (status == true) {
             String result = "Course " + searchedCourse + " deleted!";

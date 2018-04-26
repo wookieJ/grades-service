@@ -31,8 +31,12 @@ public class GradesEndpoint {
         if (searchedStudent == null)
             return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
 
+        List<Grade> grades = searchedStudent.getGrades();
+        if(grades == null || grades.isEmpty())
+            return Response.status(Response.Status.NOT_FOUND).entity("Student's grades not found").build();
+
         // creating list of student's grades
-        GenericEntity<List<Grade>> entity = new GenericEntity<List<Grade>>(Lists.newArrayList(searchedStudent.getGrades())) {
+        GenericEntity<List<Grade>> entity = new GenericEntity<List<Grade>>(Lists.newArrayList(grades)) {
         };
         // creating xml response
         return Response.status(Response.Status.OK).entity(entity).build();
@@ -85,6 +89,7 @@ public class GradesEndpoint {
             IdGeneratorService generator = new IdGeneratorService();
             grade.setId(generator.generateGradeId());
             grade.setStudentIndex(searchedStudent.getIndex());
+            grade.setCourse(searchedCourse);
             searchedStudent.addGrade(grade);
             studentService.updateStudent(searchedStudent);
             String result = "Student grade " + grade + " added!\n";
@@ -121,10 +126,11 @@ public class GradesEndpoint {
             // checking if grade's course exists
             CourseService courseService = new CourseService();
             Course searchedCourse = courseService.getCourseByParameters(grade.getCourse().getName(), grade.getCourse().getLecturer());
-
+            System.out.println("Course : " + searchedCourse);
             if(searchedCourse == null)
                 return Response.status(Response.Status.NOT_FOUND).entity("Grade's course not found").build();
 
+            searchedCourse.setId(grade.getCourse().getId());
             grade.setId(id);
             grade.setStudentIndex(searchedStudent.getIndex());
             searchedStudent.updateStudentGrade(grade);

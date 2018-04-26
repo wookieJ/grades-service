@@ -1,7 +1,9 @@
 package org.rest.dao;
 
 import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 import org.rest.model.IdGenerator;
+import org.rest.model.Student;
 
 import java.util.List;
 
@@ -14,14 +16,9 @@ public class MongoIdGeneratorDAO extends MongoGenericDAO<IdGenerator, Integer> {
             super.create(new IdGenerator(0, 0, 0));
         } else {
             int newStudentId = query.get().getStudentId() + 1;
-            int courseId = query.get().getCourseId();
-            int gradeId = query.get().getGradeId();
-            IdGenerator newIdGenerator = new IdGenerator(newStudentId, courseId, gradeId);
-
-            // TODO - findAndModify
-            super.datastore.findAndDelete(query);
-            super.create(newIdGenerator);
-
+            final UpdateOperations<IdGenerator> updateOperations = datastore.createUpdateOperations(IdGenerator.class)
+                    .set("studentId", newStudentId);
+            datastore.findAndModify(query, updateOperations);
             id = newStudentId;
         }
         return id;
@@ -33,15 +30,11 @@ public class MongoIdGeneratorDAO extends MongoGenericDAO<IdGenerator, Integer> {
         if (query.countAll() == 0) {
             super.create(new IdGenerator(0, 0, 0));
         } else {
-            int studentId = query.get().getStudentId();
             int newCourseId = query.get().getCourseId() + 1;
-            int gradeId = query.get().getGradeId();
-            IdGenerator newIdGenerator = new IdGenerator(studentId, newCourseId, gradeId);
+            final UpdateOperations<IdGenerator> updateOperations = datastore.createUpdateOperations(IdGenerator.class)
+                    .set("courseId", newCourseId);
 
-            // TODO - findAndModify
-            super.datastore.findAndDelete(query);
-            super.create(newIdGenerator);
-
+            datastore.findAndModify(query, updateOperations);
             id = newCourseId;
         }
         return id;
@@ -53,15 +46,10 @@ public class MongoIdGeneratorDAO extends MongoGenericDAO<IdGenerator, Integer> {
         if (query.countAll() == 0) {
             super.create(new IdGenerator(0, 0, 0));
         } else {
-            int studentId = query.get().getStudentId();
-            int courseId = query.get().getCourseId();
             int newGradeId = query.get().getGradeId() + 1;
-            IdGenerator newIdGenerator = new IdGenerator(studentId, courseId, newGradeId);
-
-            // TODO - findAndModify
-            super.datastore.findAndDelete(query);
-            super.create(newIdGenerator);
-
+            final UpdateOperations<IdGenerator> updateOperations = datastore.createUpdateOperations(IdGenerator.class)
+                    .set("gradeId", newGradeId);
+            datastore.findAndModify(query, updateOperations);
             id = newGradeId;
         }
         return id;
