@@ -104,24 +104,25 @@ public class CoursesEndpoint {
             return Response.status(Response.Status.NOT_FOUND).entity("Not found").build();
         }
 
-//        // updating course
-//        StudentService studentService = new StudentService();
-//        List<Student> students = studentService.getAllStudents();
-//
-//        // TODO - Zrobić na streamach ładniej!
-//        // Deleting grades with deleting course
-//        if(students != null && !students.isEmpty()){
-////            List<Student> filteredStudent = new ArrayList<>();
-//            for(Student st: students){
-//                for(int i=0 ; i<st.getGrades().size() ; i++) {//Grade gr: st.getGrades()) {
-//                    if(st.getGrades().get(i).getCourse().getId() == id) {
-////                        filteredStudent.add(st);
-//                        st.removeStudentGradeById(st.getGrades().get(i).getId());
-//                    }
-//                }
-//                studentService.updateStudent(st);
-//            }
-//        }
+        // updating course
+        StudentService studentService = new StudentService();
+        List<Student> students = studentService.getAllStudents();
+
+        // TODO - Zrobić na streamach ładniej lub zapytanie do każdej oceny na query!
+        // Deleting grades with deleting course
+        if(students != null && !students.isEmpty()){
+//            List<Student> filteredStudent = new ArrayList<>();
+            for(Student st: students){
+                for(int i=0 ; i<st.getGrades().size() ; i++) {//Grade gr: st.getGrades()) {
+                    if(st.getGrades().get(i).getCourse().getId() == id) {
+//                        filteredStudent.add(st);
+                        System.out.println(st.getGrades().get(i));
+                        st.removeStudentGradeById(st.getGrades().get(i).getId());
+                    }
+                }
+                studentService.updateStudent(st, true);
+            }
+        }
 
         boolean status = courseService.deleteCourse(id);
         if (status == true) {

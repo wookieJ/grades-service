@@ -1,7 +1,6 @@
 package org.rest.endpoints;
 
 import jersey.repackaged.com.google.common.collect.Lists;
-import org.rest.data.Data;
 import org.rest.model.Course;
 import org.rest.model.Grade;
 import org.rest.model.Student;
@@ -32,7 +31,7 @@ public class GradesEndpoint {
             return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
 
         List<Grade> grades = searchedStudent.getGrades();
-        if(grades == null || grades.isEmpty())
+        if (grades == null || grades.isEmpty())
             return Response.status(Response.Status.NOT_FOUND).entity("Student's grades not found").build();
 
         // creating list of student's grades
@@ -83,7 +82,7 @@ public class GradesEndpoint {
             CourseService courseService = new CourseService();
             Course searchedCourse = courseService.getCourseByParameters(grade.getCourse().getName(), grade.getCourse().getLecturer());
 
-            if(searchedCourse == null)
+            if (searchedCourse == null)
                 return Response.status(Response.Status.NOT_FOUND).entity("Grade's course not found").build();
 
             IdGeneratorService generator = new IdGeneratorService();
@@ -91,7 +90,7 @@ public class GradesEndpoint {
             grade.setStudentIndex(searchedStudent.getIndex());
             grade.setCourse(searchedCourse);
             searchedStudent.addGrade(grade);
-            studentService.updateStudent(searchedStudent);
+            studentService.updateStudent(searchedStudent, false);
             String result = "Student grade " + grade + " added!\n";
 
             // creating response
@@ -127,14 +126,14 @@ public class GradesEndpoint {
             CourseService courseService = new CourseService();
             Course searchedCourse = courseService.getCourseByParameters(grade.getCourse().getName(), grade.getCourse().getLecturer());
             System.out.println("Course : " + searchedCourse);
-            if(searchedCourse == null)
+            if (searchedCourse == null)
                 return Response.status(Response.Status.NOT_FOUND).entity("Grade's course not found").build();
 
             searchedCourse.setId(grade.getCourse().getId());
             grade.setId(id);
             grade.setStudentIndex(searchedStudent.getIndex());
             searchedStudent.updateStudentGrade(grade);
-            studentService.updateStudent(searchedStudent);
+            studentService.updateStudent(searchedStudent, false);
             String result = "Student grade " + grade + " updated!";
 
             // creating response
@@ -161,7 +160,7 @@ public class GradesEndpoint {
 
         // removing student grade
         searchedStudent.removeStudentGradeById(id);
-        studentService.updateStudent(searchedStudent);
+        studentService.updateStudent(searchedStudent, false);
         String result = "Student grade " + searchedGrade + " deleted!";
 
         // creating response

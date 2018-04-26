@@ -57,10 +57,13 @@ public class StudentService {
      * @param student student we want to set
      * @return true if operation succeeded, false otherwise
      */
-    public boolean updateStudent(Student student) {
+    public boolean updateStudent(Student student, boolean force) {
         DAOFactory factory = DAOFactory.getDAOFactory();
         MongoStudentDAO mongoStudentDAO = factory.getMongoStudentDAO();
-        return mongoStudentDAO.update(student);
+        if (force == false)
+            return mongoStudentDAO.update(student);
+        else
+            return mongoStudentDAO.update(student, true);
     }
 
     /**

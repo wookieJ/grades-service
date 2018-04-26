@@ -86,7 +86,7 @@ public class Student {
     }
 
     @XmlElement(name = "grade")
-    @XmlElementWrapper(name = "grades")
+//    @XmlElementWrapper(name = "grades")
     @JsonProperty("grades")
     public List<Grade> getGrades() {
         return grades;
@@ -162,6 +162,7 @@ public class Student {
      * @return true if operation succeeded, false otherwise
      */
     public boolean removeStudentGradeById(int id) {
+        System.out.println("Removing: " + id);
         return getGrades().remove(getGradeById(id));
     }
 }

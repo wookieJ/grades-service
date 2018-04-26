@@ -35,4 +35,17 @@ public class MongoStudentDAO extends MongoGenericDAO<Student, Integer> {
         final List<Student> students = query.asList();
         return students;
     }
+
+    public boolean update(Student updateObject, boolean force) {
+        final Query<Student> studentToUpdate = datastore.createQuery(Student.class).field("index").equal(updateObject.getIndex());
+        final UpdateOperations<Student> updateOperations = datastore.createUpdateOperations(Student.class)
+                .set("firstName", updateObject.getFirstName())
+                .set("lastName", updateObject.getLastName())
+                .set("birthday", updateObject.getBirthday());
+        if(force == true)
+            updateOperations.set("grades", updateObject.getGrades());
+        datastore.update(studentToUpdate, updateOperations);
+        // TODO - check if succeeded
+        return true;
+    }
 }

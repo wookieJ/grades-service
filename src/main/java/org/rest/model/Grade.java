@@ -37,6 +37,7 @@ public class Grade {
     // @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="CET")
     private Date date;
 
+    @Reference
     private Course course;
     private static int idNumber = 0;
 

@@ -40,4 +40,10 @@ public abstract class MongoGenericDAO<T, PK extends Serializable> {
         else
             return false;
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("fwe");
+        mongoClient.close();
+    }
 }

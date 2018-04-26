@@ -103,7 +103,7 @@ public class StudentsEndpoint {
         }
 
         // updating student
-        boolean status = studentService.updateStudent(student);
+        boolean status = studentService.updateStudent(student, false);
         String result = "Student " + student + " updated!";
 
         // creating response
