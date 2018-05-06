@@ -35,7 +35,7 @@ public class StudentsEndpoint {
     @GET
     @Path("/{index}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getStudentByIndex(@PathParam("index") int index) {
+    public Response getStudentByIndex(@PathParam("index") int index, @QueryParam("firstName") String firstName) {
         // getting student by it's index
         StudentService studentService = new StudentService();
         Student searchedStudent = studentService.getStudent(index);
@@ -57,9 +57,9 @@ public class StudentsEndpoint {
             CourseService courseService = new CourseService();
             Course searchedCourse;
 
-            for(Grade grade: student.getGrades()) {
+            for (Grade grade : student.getGrades()) {
                 searchedCourse = courseService.getCourseByParameters(grade.getCourse().getName(), grade.getCourse().getLecturer());
-                if(searchedCourse == null){
+                if (searchedCourse == null) {
                     return Response.status(Response.Status.NOT_FOUND).entity("Grade's course not found").build();
                 }
             }
@@ -95,9 +95,9 @@ public class StudentsEndpoint {
         CourseService courseService = new CourseService();
         Course searchedCourse;
 
-        for(Grade grade: student.getGrades()) {
+        for (Grade grade : student.getGrades()) {
             searchedCourse = courseService.getCourseByParameters(grade.getCourse().getName(), grade.getCourse().getLecturer());
-            if(searchedCourse == null){
+            if (searchedCourse == null) {
                 return Response.status(Response.Status.NOT_FOUND).entity("Grade's course not found").build();
             }
         }

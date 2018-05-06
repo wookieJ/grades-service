@@ -3,9 +3,6 @@ package org.rest.dao;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateResults;
-import org.rest.model.Student;
 
 import java.io.Serializable;
 import java.util.List;
@@ -35,7 +32,7 @@ public abstract class MongoGenericDAO<T, PK extends Serializable> {
 
     public boolean delete(PK primaryKey) {
         datastore.delete(read(primaryKey));
-        if(read(primaryKey) == null)
+        if (read(primaryKey) == null)
             return true;
         else
             return false;
@@ -43,7 +40,6 @@ public abstract class MongoGenericDAO<T, PK extends Serializable> {
 
     @Override
     protected void finalize() throws Throwable {
-        System.out.println("fwe");
         mongoClient.close();
     }
 }

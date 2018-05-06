@@ -4,17 +4,11 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.linking.DeclarativeLinkingFeature;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.rest.data.Data;
-import org.rest.model.Course;
-import org.rest.model.Grade;
-import org.rest.model.Student;
-import org.rest.service.StudentService;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
 // TODO - authorization
+// TODO - Nie zwracać 404 NOT FOUND tylko pustą listę jak nie ma
 public class Application {
     /**
      * URI where application started at.
