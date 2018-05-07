@@ -9,6 +9,7 @@ import java.net.URI;
 
 // TODO - authorization
 // TODO - Nie zwracać 404 NOT FOUND tylko pustą listę jak nie ma
+// TODO - Brakujące komentarze
 public class Application {
     /**
      * URI where application started at.
@@ -21,8 +22,13 @@ public class Application {
      * @return GrizzlyServer from GrizzlyHttpServerFactory based on BASE_URI.
      */
     public static HttpServer startServer() {
-        ResourceConfig rc = new ResourceConfig().packages("org.glassfish.jersey.examples.linking").register(DeclarativeLinkingFeature.class).packages("org.rest.endpoints");
+        ResourceConfig rc = new ResourceConfig()
+                .packages("org.glassfish.jersey.examples.linking")
+                .register(DeclarativeLinkingFeature.class)
+                .packages("org.rest.endpoints");
+        rc.register(org.rest.converters.DateParamConverterProvider.class);
         rc.register(org.rest.exceptions.AppExceptionMapper.class);
+        // TODO - rejestracja nie działa (Date jako parametr)
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }
 

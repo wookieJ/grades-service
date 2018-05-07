@@ -2,7 +2,6 @@ package org.rest.endpoints;
 
 import jersey.repackaged.com.google.common.collect.Lists;
 import org.rest.model.Course;
-import org.rest.model.Grade;
 import org.rest.model.Student;
 import org.rest.service.CourseService;
 import org.rest.service.StudentService;
@@ -11,22 +10,32 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Path("/courses")
 public class CoursesEndpoint {
+
+    /**
+     * Endpoint which returns list of courses. It is possible to filter list by lecturer name.
+     *
+     * @param lecturer lecturer name we want to filter list by.
+     * @return list of all courses if lecturer parameter is not set and filtered list otherwise.
+     */
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getAllCourses() {
+    public Response getAllCourses(@QueryParam("lecturer") String lecturer) {
         CourseService courseService = new CourseService();
         List<Course> courses = courseService.getAllCourses();
 
-        // checking if courses list is empty
-        if (courses == null || courses.size() == 0)
-            return Response.status(Response.Status.NOT_FOUND).entity("No courses").build();
+//        // checking if courses list is empty
+//        if (courses == null || courses.size() == 0)
+//            return Response.status(Response.Status.NOT_FOUND).entity("No courses").build();
+
+        // filtering by lecturer name
+        if (lecturer != null) {
+            courses = courses.stream().filter(cr -> cr.getLecturer().equals(lecturer)).collect(Collectors.toList());
+        }
 
         GenericEntity<List<Course>> entity = new GenericEntity<List<Course>>(Lists.newArrayList(courses)) {
         };
@@ -34,6 +43,12 @@ public class CoursesEndpoint {
         return Response.status(Response.Status.OK).entity(entity).build();
     }
 
+    /**
+     * Endpoint that allows getting course by id.
+     *
+     * @param id unique value of course id we want to get.
+     * @return response of successful operation.
+     */
     @GET
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -50,24 +65,34 @@ public class CoursesEndpoint {
         return Response.status(Response.Status.OK).entity(course).build();
     }
 
+    /**
+     * Endpoint that allows adding course to service.
+     *
+     * @param course new course we want to add.
+     * @return response of successful operation
+     */
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addCourse(Course course) {
         if (course != null) {
-            // TODO - czy potrzebne?
-            Course newCourse = new Course(course);
-
             CourseService courseService = new CourseService();
-            newCourse = courseService.addCourse(newCourse);
+            course = courseService.addCourse(course);
 
-            String result = "Course " + newCourse + " added!\n";
+            String result = "Course " + course + " added!\n";
 
             // creating response
-            return Response.status(Response.Status.CREATED).header("Location", "/courses/" + newCourse.getId()).entity(result).build();
+            return Response.status(Response.Status.CREATED).header("Location", "/courses/" + course.getId()).entity(result).build();
         } else
             return Response.status(Response.Status.NO_CONTENT).entity("Courses cannot be null!").build();
     }
 
+    /**
+     * Endpoint that allows updating course which exists in service.
+     *
+     * @param course course we want to be refreshed version of existing course in service.
+     * @param id     unique course's id.
+     * @return response of successful operation.
+     */
     @PUT
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -92,6 +117,12 @@ public class CoursesEndpoint {
             return Response.status(Response.Status.CONFLICT).entity("Error, not updated").build();
     }
 
+    /**
+     * Endpoint that allows deleting existing course from service.
+     *
+     * @param id unique course's id we want to delete.
+     * @return response of successful operation.
+     */
     @DELETE
     @Path("/{id}")
     public Response deleteCourse(@PathParam("id") int id) {
@@ -110,11 +141,11 @@ public class CoursesEndpoint {
 
         // TODO - Zrobić na streamach ładniej lub zapytanie do każdej oceny na query!
         // Deleting grades with deleting course
-        if(students != null && !students.isEmpty()){
+        if (students != null && !students.isEmpty()) {
 //            List<Student> filteredStudent = new ArrayList<>();
-            for(Student st: students){
-                for(int i=0 ; i<st.getGrades().size() ; i++) {//Grade gr: st.getGrades()) {
-                    if(st.getGrades().get(i).getCourse().getId() == id) {
+            for (Student st : students) {
+                for (int i = 0; i < st.getGrades().size(); i++) {//Grade gr: st.getGrades()) {
+                    if (st.getGrades().get(i).getCourse().getId() == id) {
 //                        filteredStudent.add(st);
                         System.out.println(st.getGrades().get(i));
                         st.removeStudentGradeById(st.getGrades().get(i).getId());

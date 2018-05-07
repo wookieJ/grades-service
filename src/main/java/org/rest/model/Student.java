@@ -86,7 +86,7 @@ public class Student {
     }
 
     @XmlElement(name = "grade")
-//    @XmlElementWrapper(name = "grades")
+    @XmlElementWrapper(name = "grades")
     @JsonProperty("grades")
     public List<Grade> getGrades() {
         return grades;
