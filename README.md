@@ -1,10 +1,10 @@
 # grades-service
-[![Build Status](https://travis-ci.org/wookieJ/grades-service.svg?branch=master)](https://travis-ci.org/wookieJ/grades-service)
+[![Build Status](https://travis-ci.org/wookieJ/grades-service.svg?branch=master)](https://travis-ci.org/wookieJ/grades-service)<br/>
 Web API Application to manage students, grades and courses.
 
 ## Getting Started
 
-you need maven in version at least 3.3.9 and JDK 8.<br/>
+You need maven in version at least 3.3.9 and JDK 8.<br/>
 To clone repository enter
 
 ```
