@@ -103,7 +103,6 @@ public class Student {
         this.grades = grades;
     }
 
-    // TODO - dodanie id oceny
     public Student(Student student) {
         this.firstName = student.getFirstName();
         this.lastName = student.getLastName();

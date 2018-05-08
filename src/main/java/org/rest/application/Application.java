@@ -8,8 +8,8 @@ import org.glassfish.jersey.server.ResourceConfig;
 import java.net.URI;
 
 // TODO - authorization
-// TODO - Nie zwracać 404 NOT FOUND tylko pustą listę jak nie ma
-// TODO - Brakujące komentarze
+// TODO - return empty list, not 404 response code
+// TODO - write comments
 public class Application {
     /**
      * URI where application started at.
@@ -28,7 +28,6 @@ public class Application {
                 .packages("org.rest.endpoints");
         rc.register(org.rest.converters.DateParamConverterProvider.class);
         rc.register(org.rest.exceptions.AppExceptionMapper.class);
-        // TODO - rejestracja nie działa (Date jako parametr)
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }
 

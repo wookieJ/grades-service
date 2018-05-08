@@ -1,6 +1,0 @@
-org\rest\application\JerseyApplication.class
-org\rest\endpoints\StudentsEndpoint.class
-org\rest\application\Application.class
-org\rest\model\Grade.class
-org\rest\model\Course.class
-org\rest\model\Student.class
