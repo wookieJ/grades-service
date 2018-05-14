@@ -10,6 +10,7 @@ import java.net.URI;
 // TODO - authorization
 // TODO - return empty list, not 404 response code
 // TODO - write comments
+// TODO - add MANIFEST for running jar file
 public class Application {
     /**
      * URI where application started at.

@@ -26,16 +26,7 @@ public class CoursesEndpoint {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getAllCourses(@QueryParam("lecturer") String lecturer) {
         CourseService courseService = new CourseService();
-        List<Course> courses = courseService.getAllCourses();
-
-//        // checking if courses list is empty
-//        if (courses == null || courses.size() == 0)
-//            return Response.status(Response.Status.NOT_FOUND).entity("No courses").build();
-
-        // filtering by lecturer name
-        if (lecturer != null) {
-            courses = courses.stream().filter(cr -> cr.getLecturer().equals(lecturer)).collect(Collectors.toList());
-        }
+        List<Course> courses = courseService.getCoursesByLecturerFilter(lecturer);
 
         GenericEntity<List<Course>> entity = new GenericEntity<List<Course>>(Lists.newArrayList(courses)) {
         };
@@ -142,11 +133,9 @@ public class CoursesEndpoint {
         // TODO - Zrobić na streamach ładniej lub zapytanie do każdej oceny na query!
         // Deleting grades with deleting course
         if (students != null && !students.isEmpty()) {
-//            List<Student> filteredStudent = new ArrayList<>();
             for (Student st : students) {
-                for (int i = 0; i < st.getGrades().size(); i++) {//Grade gr: st.getGrades()) {
+                for (int i = 0; i < st.getGrades().size(); i++) {
                     if (st.getGrades().get(i).getCourse().getId() == id) {
-//                        filteredStudent.add(st);
                         System.out.println(st.getGrades().get(i));
                         st.removeStudentGradeById(st.getGrades().get(i).getId());
                     }

@@ -4,6 +4,7 @@ import org.rest.dao.DAOFactory;
 import org.rest.dao.MongoStudentDAO;
 import org.rest.model.Student;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,7 +64,7 @@ public class StudentService {
         if (force == false)
             return mongoStudentDAO.update(student);
         else
-            return mongoStudentDAO.update(student, true);
+            return mongoStudentDAO.update(student);
     }
 
     /**
@@ -76,5 +77,20 @@ public class StudentService {
         DAOFactory factory = DAOFactory.getDAOFactory();
         MongoStudentDAO mongoStudentDAO = factory.getMongoStudentDAO();
         return mongoStudentDAO.delete(index);
+    }
+
+    /**
+     * Getting all students that contain specified filters from database
+     *
+     * @param firstName    student's first name which will we used for filtering students list.
+     * @param lastName     student's last name which will we used for filtering students list.
+     * @param birthday         date of birth which is used for filtering students list.
+     * @param dateRelation the way we want to compare dates. For example "equal", "grater", "lower".
+     * @return list of students that contain specified filters
+     */
+    public List<Student> getStudentsByFilters(String firstName, String lastName, Date birthday, String dateRelation) {
+        DAOFactory factory = DAOFactory.getDAOFactory();
+        MongoStudentDAO mongoStudentDAO = factory.getMongoStudentDAO();
+        return mongoStudentDAO.getStudentsByFilters(firstName, lastName, birthday, dateRelation);
     }
 }

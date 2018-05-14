@@ -64,6 +64,7 @@ public class CourseService {
 
     /**
      * Updating existing course in service.
+     *
      * @param course new course version.
      * @return true if succe
      */
@@ -73,9 +74,27 @@ public class CourseService {
         return mongoCourseDAO.update(course);
     }
 
+    /**
+     * Deleting course by id
+     *
+     * @param id id of course
+     * @return true if operation succeeded
+     */
     public boolean deleteCourse(int id) {
         DAOFactory factory = DAOFactory.getDAOFactory();
         MongoCourseDAO mongoCourseDAO = factory.getMongoCourseDAO();
         return mongoCourseDAO.delete(id);
+    }
+
+    /**
+     * Getting courses by lecturer
+     *
+     * @param lecturer name of course's lecturer
+     * @return list of courses filtered with lecturer
+     */
+    public List<Course> getCoursesByLecturerFilter(String lecturer) {
+        DAOFactory factory = DAOFactory.getDAOFactory();
+        MongoCourseDAO mongoCourseDAO = factory.getMongoCourseDAO();
+        return mongoCourseDAO.getByLecturer(lecturer);
     }
 }

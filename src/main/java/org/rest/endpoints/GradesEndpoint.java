@@ -41,7 +41,6 @@ public class GradesEndpoint {
 
         // checking if student exists
         if (searchedStudent == null) {
-//            searchedStudent = new Student();
             return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
         }
 
