@@ -2,52 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd9bfb06-411a-4cf1-a137-1a4fdace3d64" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/cobertura.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/application/Application.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/converters/DateParamConverterProvider$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/converters/DateParamConverterProvider.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/dao/DAOFactory.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/dao/MongoCourseDAO.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/dao/MongoDAOFactory.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/dao/MongoGenericDAO.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/dao/MongoIdGeneratorDAO.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/dao/MongoStudentDAO.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/endpoints/CoursesEndpoint$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/endpoints/CoursesEndpoint.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/endpoints/GradesEndpoint$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/endpoints/GradesEndpoint.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/endpoints/StudentsEndpoint$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/endpoints/StudentsEndpoint.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/exceptions/AppException.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/exceptions/AppExceptionMapper.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/exceptions/ErrorMessage.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/model/Course.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/model/Grade.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/model/IdGenerator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/model/ObjectIdJaxbAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/model/Student.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/service/CourseService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/service/IdGeneratorService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/generated-classes/cobertura/org/rest/service/StudentService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-cli/createdFiles.lst" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-cli/inputFiles.lst" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/org/rest/application/Application.class" afterPath="$PROJECT_DIR$/target/classes/org/rest/application/Application.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/org/rest/endpoints/StudentsEndpoint.class" afterPath="$PROJECT_DIR$/target/classes/org/rest/endpoints/StudentsEndpoint.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/rest-app.jar" afterPath="$PROJECT_DIR$/target/rest-app.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/rest/application/Application.java" afterPath="$PROJECT_DIR$/src/main/java/org/rest/application/Application.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/rest/dao/MongoCourseDAO.java" afterPath="$PROJECT_DIR$/src/main/java/org/rest/dao/MongoCourseDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/rest/dao/MongoGenericDAO.java" afterPath="$PROJECT_DIR$/src/main/java/org/rest/dao/MongoGenericDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/rest/dao/MongoStudentDAO.java" afterPath="$PROJECT_DIR$/src/main/java/org/rest/dao/MongoStudentDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/rest/endpoints/CoursesEndpoint.java" afterPath="$PROJECT_DIR$/src/main/java/org/rest/endpoints/CoursesEndpoint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/rest/endpoints/GradesEndpoint.java" afterPath="$PROJECT_DIR$/src/main/java/org/rest/endpoints/GradesEndpoint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/rest/endpoints/StudentsEndpoint.java" afterPath="$PROJECT_DIR$/src/main/java/org/rest/endpoints/StudentsEndpoint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/rest/service/CourseService.java" afterPath="$PROJECT_DIR$/src/main/java/org/rest/service/CourseService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/rest/service/StudentService.java" afterPath="$PROJECT_DIR$/src/main/java/org/rest/service/StudentService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -739,7 +694,7 @@
       <workItem from="1525954332920" duration="75000" />
       <workItem from="1525958050935" duration="3837000" />
       <workItem from="1526049255775" duration="656000" />
-      <workItem from="1526279134742" duration="10991000" />
+      <workItem from="1526279134742" duration="11278000" />
     </task>
     <servers />
   </component>
@@ -755,7 +710,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="193306000" />
+    <option name="totallyTimeSpent" value="193593000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
