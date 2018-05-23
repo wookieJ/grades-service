@@ -33,3 +33,12 @@ Maybe add choosing port option in parameters when starting jar file and add exce
 ## Built With
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [Travis](https://travis-ci.org/) - Test and Deploy tool
+
+## Tech Stack
+* Grizzly
+* MongoDB
+* Jersey
+* Morphia
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
