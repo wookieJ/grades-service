@@ -5,8 +5,6 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.linking.DeclarativeLinkingFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
-import javax.ws.rs.core.UriBuilder;
-import java.io.IOException;
 import java.net.URI;
 
 // TODO - authorization
@@ -14,13 +12,18 @@ import java.net.URI;
 // TODO - write comments
 // TODO - add MANIFEST for running jar file
 public class Application {
+    private static String hostname;
+    private static int port;
+
+    public static final String BASE_URI = "http://localhost:8080";
+
     /**
      * URI where application started at.
      */
-    public static final String BASE_URI = "http://localhost:8080";
-
     private static URI getBaseURI(String hostname, int port) {
-        return UriBuilder.fromUri("http://0.0.0.0/").port(port).build();
+        URI uri = URI.create("http://" + hostname + ":" + port);
+        System.out.println(uri);
+        return uri;
     }
 
     /**
@@ -29,29 +32,29 @@ public class Application {
      * @return GrizzlyServer from GrizzlyHttpServerFactory based on BASE_URI.
      */
     public static HttpServer startServer() {
-        ResourceConfig rc = new ResourceConfig()
-                .packages("org.glassfish.jersey.examples.linking")
-                .register(DeclarativeLinkingFeature.class)
-                .packages("org.rest.endpoints");
+        ResourceConfig rc = new ResourceConfig().packages("org.glassfish.jersey.examples.linking").register(DeclarativeLinkingFeature.class).packages("org.rest.endpoints");
         rc.register(org.rest.converters.DateParamConverterProvider.class);
         rc.register(org.rest.exceptions.AppExceptionMapper.class);
 //        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+//        URI urii = URI.create(BASE_URI);
+//        System.out.println(urii);
 
-        String hostname = System.getenv("HOSTNAME");
+        hostname = System.getenv("HOSTNAME");
         if (hostname == null)
             hostname = "localhost";
-        String port = System.getenv("PORT");
-        if (port == null)
-            port = "8080";
+        String portS = System.getenv("PORT");
+        if (portS == null)
+            portS = "8080";
 
-        return GrizzlyHttpServerFactory.createHttpServer(getBaseURI(hostname,Integer.valueOf(port)), rc);
+        port = Integer.valueOf(portS);
+        return GrizzlyHttpServerFactory.createHttpServer(getBaseURI(hostname, port), rc);
     }
 
     public static void main(String[] args) {
         try {
-            // starting server
             startServer();
-            System.out.println(String.format("Homework app started at " + BASE_URI));
+            System.out.println(String.format("Homework app started at http://" + hostname + ":" + port));
+            System.out.println("Example endpoint: http://" + hostname + ":" + port + "/courses");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,7 +63,6 @@ public class Application {
 
 
 //public class Main {
-
 
 
 //    protected static HttpServer startServer(URI uri) throws IOException {
