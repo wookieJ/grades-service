@@ -26,7 +26,7 @@ public class Application {
     }
 
     /**
-     * Creating new resources where JAX-RS can finds endpoints and returning GrizzlyServer basef on BASE_URI.
+     * Creating new resources where JAX-RS can finds endpoints and returning GrizzlyServer based on base URI.
      *
      * @return GrizzlyServer from GrizzlyHttpServerFactory based on BASE_URI.
      */
@@ -36,14 +36,14 @@ public class Application {
         rc.register(org.rest.exceptions.AppExceptionMapper.class);
 //        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
 
-        hostname = System.getenv("HOSTNAME");
-//        hostname = "0.0.0.0";
+//        hostname = System.getenv("HOSTNAME");
+        hostname = "localhost";
         if (hostname == null)
-            hostname = "0.0.0.0";
+            hostname = "localhost";
 
         String portS = System.getenv("PORT");
         if (portS == null)
-            portS = "5000";
+            portS = "8080";
 
         port = Integer.valueOf(portS);
         return GrizzlyHttpServerFactory.createHttpServer(getBaseURI(hostname, port), rc);
