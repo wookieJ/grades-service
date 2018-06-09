@@ -6,6 +6,7 @@ import org.glassfish.jersey.linking.DeclarativeLinkingFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import java.net.URI;
+import java.net.UnknownHostException;
 
 // TODO - authorization
 // TODO - return empty list, not 404 response code
@@ -14,8 +15,6 @@ import java.net.URI;
 public class Application {
     private static String hostname;
     private static int port;
-
-    public static final String BASE_URI = "http://localhost:8080";
 
     /**
      * URI where application started at.
@@ -31,20 +30,20 @@ public class Application {
      *
      * @return GrizzlyServer from GrizzlyHttpServerFactory based on BASE_URI.
      */
-    public static HttpServer startServer() {
+    public static HttpServer startServer() throws UnknownHostException {
         ResourceConfig rc = new ResourceConfig().packages("org.glassfish.jersey.examples.linking").register(DeclarativeLinkingFeature.class).packages("org.rest.endpoints");
         rc.register(org.rest.converters.DateParamConverterProvider.class);
         rc.register(org.rest.exceptions.AppExceptionMapper.class);
 //        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
-//        URI urii = URI.create(BASE_URI);
-//        System.out.println(urii);
 
         hostname = System.getenv("HOSTNAME");
+//        hostname = "0.0.0.0";
         if (hostname == null)
-            hostname = "localhost";
+            hostname = "0.0.0.0";
+
         String portS = System.getenv("PORT");
         if (portS == null)
-            portS = "8080";
+            portS = "5000";
 
         port = Integer.valueOf(portS);
         return GrizzlyHttpServerFactory.createHttpServer(getBaseURI(hostname, port), rc);
