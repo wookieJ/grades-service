@@ -1,6 +1,7 @@
 package org.rest.dao;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
@@ -15,9 +16,13 @@ import java.util.List;
  */
 public abstract class MongoGenericDAO<T, PK extends Serializable> {
     // TODO - Singleton pattern implement
-    private MongoClient mongoClient = new MongoClient("localhost", 8004);
+//    private MongoClient mongoClient = new MongoClient("localhost", 8004);
+    private MongoClient mongoClient = new MongoClient(
+            new MongoClientURI( "mongodb://admin:password123@ds253840.mlab.com:53840/grades-service" )
+    );
     private Morphia morphia = new Morphia();
-    protected Datastore datastore = morphia.createDatastore(mongoClient, "students-grades");
+//    protected Datastore datastore = morphia.createDatastore(mongoClient, "StudentGrades");
+    protected Datastore datastore = morphia.createDatastore(mongoClient, "grades-service");
 
     public abstract List<T> getAll();
 
