@@ -1,6 +1,11 @@
 # grades-service
 [![Build Status](https://travis-ci.org/wookieJ/grades-service.svg?branch=master)](https://travis-ci.org/wookieJ/grades-service)
 [![codecov](https://codecov.io/gh/wookieJ/grades-service/branch/master/graph/badge.svg)](https://codecov.io/gh/wookieJ/grades-service)<br/>
+
+<p align="center">
+  <img width="750" src="../master/screenshots/screen.PNG">
+</p>
+
 Web API Application to manage students, grades and courses.
 
 ## Getting Started

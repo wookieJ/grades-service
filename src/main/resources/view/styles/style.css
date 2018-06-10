@@ -345,7 +345,7 @@ table tr td input::placeholder {
     border: none;
     height: 2em;
     width: 2em;
-    background: url('./assets/delete.png') no-repeat center;
+    background: url('../assets/delete.png') no-repeat center;
     background-size: 80% 80%;
     padding: 1em;
 }
@@ -355,7 +355,7 @@ table tr td input::placeholder {
     border: none;
     height: 2em;
     width: 2em;
-    background: url('./assets/more.png') no-repeat center;
+    background: url('../assets/more.png') no-repeat center;
     background-size: 80% 80%;
     padding: 1em;
 }
@@ -365,7 +365,7 @@ table tr td input::placeholder {
     border: none;
     height: 2em;
     width: 2em;
-    background: url('./assets/add.png') no-repeat center;
+    background: url('../assets/add.png') no-repeat center;
     background-size: 100% 100%;
     padding: 1em;
 }
@@ -375,7 +375,7 @@ table tr td input::placeholder {
     border: none;
     height: 2em;
     width: 2em;
-    background: url('./assets/add-grade-course.png') no-repeat center;
+    background: url('../assets/add-grade-course.png') no-repeat center;
     background-size: 80% 80%;
     padding: 1em;
 }
@@ -385,7 +385,7 @@ table tr td input::placeholder {
     border: none;
     height: 2em;
     width: 2em;
-    background: url('./assets/edit.png') no-repeat center;
+    background: url('../assets/edit.png') no-repeat center;
     background-size: 80% 80%;
     padding: 1em;
 }
