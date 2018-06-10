@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd9bfb06-411a-4cf1-a137-1a4fdace3d64" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/org/rest/application/Application.class" afterPath="$PROJECT_DIR$/target/classes/org/rest/application/Application.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/view/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/rest/application/Application.java" afterPath="$PROJECT_DIR$/src/main/java/org/rest/application/Application.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -31,11 +30,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Application.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Application.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/application/Application.java">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="29" column="54" lean-forward="true" selection-start-line="29" selection-start-column="54" selection-end-line="29" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/view/index.html">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="21" column="67" lean-forward="true" selection-start-line="21" selection-start-column="67" selection-end-line="21" selection-end-column="67" />
+              <caret line="15" column="70" lean-forward="true" selection-start-line="15" selection-start-column="70" selection-end-line="15" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -193,6 +202,7 @@
         <option value="$PROJECT_DIR$/src/main/java/org/rest/endpoints/HelloEndpoint.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/rest/config/CorsConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/rest/application/Application.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/view/index.html" />
       </list>
     </option>
   </component>
@@ -285,6 +295,21 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="grades-service" type="b2602c69:ProjectViewProjectNode" />
+              <item name="grades-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="grades-service" type="b2602c69:ProjectViewProjectNode" />
+              <item name="grades-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -305,6 +330,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Łukasz\IdeaProjects\grades-service\src\main\resources\view\assets" />
       <recent name="C:\Users\Łukasz\IdeaProjects\grades-service\src\main\resources\view" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
@@ -324,7 +350,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Run REST">
+  <component name="RunManager" selected="JavaScript Debug.index.html (1)">
     <configuration name="Run REST" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="org.rest.application.Application" />
@@ -445,16 +471,19 @@
       <properties />
       <listeners />
     </configuration>
+    <configuration name="index.html (1)" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/grades-service/rest/view/index.html" />
     <configuration name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/grades-service/rest/index.html" />
-    <list size="3">
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Application.Run REST" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.StudentsEndpoint" />
       <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
+      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.index.html (1)" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.StudentsEndpoint" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html (1)" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.StudentsEndpoint" />
       </list>
     </recent_temporary>
   </component>
@@ -511,7 +540,7 @@
       <workItem from="1528556378724" duration="5228000" />
       <workItem from="1528568516016" duration="55000" />
       <workItem from="1528577350465" duration="1967000" />
-      <workItem from="1528613102449" duration="201000" />
+      <workItem from="1528613102449" duration="311000" />
     </task>
     <servers />
   </component>
@@ -527,7 +556,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="204821000" />
+    <option name="totallyTimeSpent" value="204931000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -930,18 +959,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/view/index.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/application/Application.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="8" lean-forward="true" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+        <state relative-caret-position="391">
+          <caret line="29" column="54" lean-forward="true" selection-start-line="29" selection-start-column="54" selection-end-line="29" selection-end-column="54" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/rest/application/Application.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/view/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="21" column="67" lean-forward="true" selection-start-line="21" selection-start-column="67" selection-end-line="21" selection-end-column="67" />
+          <caret line="15" column="70" lean-forward="true" selection-start-line="15" selection-start-column="70" selection-end-line="15" selection-end-column="70" />
           <folding />
         </state>
       </provider>
