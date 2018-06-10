@@ -1,0 +1,431 @@
+/* ---------- Target ---------- */
+.student-list-content {
+    display: none;
+}
+
+.student-list-content:target {
+    display: block;
+}
+
+.student-grades-content {
+    display: none;
+}
+
+.student-grades-content:target {
+    display: block;
+}
+
+.course-list-content {
+    display: none;
+}
+
+.course-list-content:target {
+    display: block;
+}
+
+/* --------- flex --------- */
+nav {
+    flex: 2 1 10em;
+}
+
+.contentBody {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.contentTables {
+    flex: 5 0 75%;
+}
+
+/* ------- Background ----- */
+body {
+    margin: 0;
+}
+
+header {
+    /*background: linear-gradient(#203F66, #3185EA);*/
+    background-color: #203F66;
+}
+
+nav {
+    background-color: #DB5102;
+}
+
+nav div a {
+    text-decoration: none;
+}
+
+nav div a:hover {
+    text-decoration: underline;
+}
+
+nav div:hover {
+    background-color: steelblue;
+}
+
+.contentTables {
+    background-color: #FFFFFF;
+}
+
+footer {
+    background: linear-gradient(#CFDFE5, #FFFFFF);
+}
+
+footer section p,
+footer section a {
+    color: #1f1f1f;
+}
+
+/* ---------- Padding, margin ------- */
+table tr th,
+table tr td {
+    text-align: center;
+}
+
+table tr th {
+    font-size: 1.6em;
+    /*margin: auto;*/
+}
+
+table tr th input {
+    font-size: 0.9em;
+    /*margin: auto;*/
+}
+
+table th select {
+    font-size: 0.85em;
+    text-align: center;
+}
+
+header {
+    /*padding-top: 1.5em;*/
+}
+
+header h1 {
+    /*padding-top: 0.7em;*/
+    /*padding-left: 0.2em;*/
+    padding-bottom: 0.2em;
+    margin: auto;
+}
+
+header img {
+    padding: 1em;
+    width: 6em;
+    height: 4em;
+}
+
+nav div {
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+
+.contentTables {
+    padding: 1.5em 1.5em 5em;
+}
+
+.contentTables h2 {
+    margin: 0;
+    padding-bottom: 0.5em;
+}
+
+footer p, footer a {
+    padding: 0.2em;
+    margin: 0;
+}
+
+footer section {
+    padding: 0.6em;
+}
+
+/* ------ display ----- */
+header h1 {
+    display: inline-block;
+}
+
+nav {
+    display: inline-table;
+}
+
+/* ------ OTHER ------- */
+header h1 {
+    font-size: 3em;
+    color: white;
+}
+
+nav {
+    text-align: center;
+}
+
+h1 {
+    font-family: Arial, sans-serif;
+}
+
+p {
+    font-family: Calibri, sans-serif;
+}
+
+nav div {
+    font-size: 1.3em;
+}
+
+nav div a {
+    color: black;
+    font-weight: 700;
+}
+
+footer p, footer a {
+    color: #C2B6AF;
+    font-size: medium;
+}
+
+/*----- Tables row's color -----*/
+table tr th {
+    font-weight: normal;
+}
+
+table tr:nth-child(odd) {
+    background-color: lightsteelblue;
+    color: black;
+}
+
+table tr:nth-child(even) {
+    background-color: white;
+    color: black;
+}
+
+table tr:first-child {
+    background-color: #203F66;
+    color: white;
+}
+
+table tr:hover {
+    background-color: #DB5102;
+    color: white;
+}
+
+table tr th select:hover,
+table tr td select:hover {
+    color: black;
+}
+
+table tr td {
+    text-align: center;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    white-space: nowrap;
+}
+
+table td,
+table th{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.student-list-table {
+    overflow-x:auto;
+}
+
+.lp-column {
+    width: 0.8em;
+}
+
+.index-column {
+    width: 2em;
+}
+
+.index-column input {
+    text-align: center;
+}
+
+.firstname-column {
+    width: 3em;
+}
+
+.firstname-column input {
+    padding-left: 0.2em;
+}
+
+.lastname-column {
+    width: 3em;
+}
+
+.lastname-column input {
+    padding-left: 0.2em;
+}
+
+.birthday-column {
+    width: 2em;
+}
+
+.birthday-column input {
+    text-align: center;
+}
+.actions-column {
+    width: 2em;
+}
+
+.value-column {
+    width: 1em;
+}
+
+.value-column input {
+    text-align: center;
+}
+
+.course-column {
+    width: 1.5em;
+}
+
+.course-column input {
+    text-align: center;
+}
+
+.name-column {
+    width: 2em;
+}
+
+.name-column input {
+    text-align: center;
+}
+
+.lecturer-column {
+    width: 2em;
+}
+
+.lecturer-column input {
+    padding-left:0.3em;
+}
+
+table tr th input,
+table tr td input
+{
+    width: auto;
+}
+
+table tr th input,
+table tr th select {
+    text-align: center;
+}
+
+table tr th input,
+table tr td input,
+table tr th select,
+table tr td select {
+    width: 100%;
+    background-color: inherit;
+    border: none;
+    color: inherit;
+    /*padding: 0.2em;*/
+}
+
+table tr th input:invalid,
+table tr td input:invalid,
+table tr th select:invalid,
+table tr td select:invalid{
+    border:3px solid red;
+    color: red;
+}
+
+table tr th input::placeholder {
+    color: inherit;
+}
+
+table tr td input::placeholder {
+    color: grey;
+}
+
+/*----- Buttons -----*/
+
+.delete-button {
+    cursor: pointer;
+    border: none;
+    height: 2em;
+    width: 2em;
+    background: url('../assets/delete.png') no-repeat center;
+    background-size: 80% 80%;
+    padding: 1em;
+}
+
+.more-info-button {
+    cursor: pointer;
+    border: none;
+    height: 2em;
+    width: 2em;
+    background: url('../assets/more.png') no-repeat center;
+    background-size: 80% 80%;
+    padding: 1em;
+}
+
+.add-student-button {
+    cursor: pointer;
+    border: none;
+    height: 2em;
+    width: 2em;
+    background: url('../assets/add.png') no-repeat center;
+    background-size: 100% 100%;
+    padding: 1em;
+}
+
+.add-button {
+    cursor: pointer;
+    border: none;
+    height: 2em;
+    width: 2em;
+    background: url('../assets/add-grade-course.png') no-repeat center;
+    background-size: 80% 80%;
+    padding: 1em;
+}
+
+.edit-button {
+    cursor: pointer;
+    border: none;
+    height: 2em;
+    width: 2em;
+    background: url('../assets/edit.png') no-repeat center;
+    background-size: 80% 80%;
+    padding: 1em;
+}
+
+@media print {
+    body,
+    body a,
+    input,
+    select,
+    table tr:nth-child(odd),
+    table tr:nth-child(even),
+    table tr:hover,
+    ::placeholder {
+        color: black;
+        background-color: white;
+    }
+
+    nav,
+    footer,
+    table tr:last-child,
+    table tr th:last-child,
+    table tr td:last-child,
+    header {
+        display: none;
+    }
+
+    table tr th {
+        font-size: larger;
+    }
+
+    table tr th input {
+        font-size: 1em;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    tr {
+        border: solid;
+        border-width: 1px 0;
+    }
+}

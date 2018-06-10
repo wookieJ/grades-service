@@ -1,12 +1,17 @@
 "use strict";
 
-var myObservableArray = ko.observableArray();
-myObservableArray.push('Some value');
+var students = ko.observableArray();
 
-// alert('The length of the array is ' + myObservableArray().length);
-// alert('The first element is ' + myObservableArray()[0]);
-
-$.get( "http://localhost:8080/courses", function( data ) {
-    alert( "Data Loaded: " + data);
-    console.log(data)
+$(document).ready(function () {
+    $.ajax({
+        type: 'GET',
+        headers: {
+            Accept: "application/json; charset=utf-8"
+        },
+        url: 'http://localhost:8080/students',
+        success: function (data) {
+            ko.mapping.fromJS(data, students);
+            console.log(data)
+        }
+    });
 });
