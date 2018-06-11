@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="styles/style.css">
-    <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="scripts/knockout-3.4.2.js"></script>
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/knockout.js"></script>
     <script type="text/javascript" src="scripts/mapping.js"></script>
     <script type="text/javascript" src="scripts/script.js"></script>
     <title>Student-Grade Manager</title>
@@ -44,49 +44,24 @@
                         </th>
                         <th class="actions-column">Actions</th>
                     </tr>
+                    <tbody data-bind='foreach: students'>
                     <tr>
                         <td class="lp-column">1</td>
-                        <td class="index-column"><input type="text" name="index" value=121578 readonly></td>
+                        <td class="index-column"><input type="text" name="index" value=121578 readonly
+                                                        data-bind="value: index"></td>
                         <td class="firstname-column"><input type="text" name="firstName" required="required" value="Jan"
-                                                            placeholder="First name"></td>
+                                                            placeholder="First name" data-bind="value: firstName"></td>
                         <td class="lastname-column"><input type="text" name="lastName" required="required" value="Nowak"
-                                                           placeholder="Last name"></td>
+                                                           placeholder="Last name" data-bind="value: lastName"></td>
                         <td class="birthday-column"><input type="date" name="birthday" required="required"
-                                                           value="1995-02-12" required="required"></td>
+                                                           value="1995-02-12" required="required"
+                                                           data-bind="value: dateOfBirth"></td>
                         <td class="actions-column">
                             <button class="delete-button" type="button"></button>
                             <button class="more-info-button" type="button"></button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="index-column"><input type="text" name="index" value=121567 readonly></td>
-                        <td class="firstname-column"><input type="text" name="firstName" value="Adam"
-                                                            required="required" placeholder="First name"></td>
-                        <td class="lastname-column"><input type="text" name="lastName" value="Kowalski"
-                                                           required="required" placeholder="Last name"></td>
-                        <td class="birthday-column  "><input type="date" name="birthday" value="1995-12-13"
-                                                             required="required" required="required"></td>
-                        <td class="actions-column">
-                            <button class="delete-button" type="button"></button>
-                            <button class="more-info-button" type="button"></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="lp-column">3</td>
-                        <td class="index-column"><input type="text" name="index" value=122347 readonly></td>
-                        <td class="firstname-column"><input type="text" name="firstName" value="Grzegorz"
-                                                            required="required" placeholder="First name"></td>
-                        <td class="lastname-column"><input type="text" name="lastName" value="Pierwszy"
-                                                           required="required" placeholder="Last name"></td>
-                        <td class="birthday-column">
-                            <input type="date" name="birthday" value="1994-01-01" required="required"
-                                   required="required"></td>
-                        <td class="actions-column">
-                            <button class="delete-button" type="button"></button>
-                            <button class="more-info-button" type="button"></button>
-                        </td>
-                    </tr>
+                    </tbody>
                     <!-- Empty row for adding new student -->
                     <tr>
                         <td class="lp-column">4</td>
@@ -144,24 +119,6 @@
                             <button class="more-info-button" type="button"></button>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="lp-column">2</td>
-                        <td class="value-column"><input type="number" name="value" step=0.5 min=2.0 max=5.0 value=5.0>
-                        </td>
-                        <td class="birthday-column"><input type="date" name="date" value=2018-05-14 required="required">
-                        </td>
-                        <td class="course-column">
-                            <select name="course" id="2courseSelector">
-                                <option value="Angielski">Angielski</option>
-                                <option value="Niemiecki" selected>Niemiecki</option>
-                                <option value="WF">WF</option>
-                            </select>
-                        <td class="actions-column">
-                            <button class="edit-button" type="button"></button>
-                            <button class="delete-button" type="button"></button>
-                            <button class="more-info-button" type="button"></button>
-                        </td>
-                    </tr>
                     <!-- Empty row for adding new grade -->
                     <tr>
                         <td class="lp-column">3</td>
@@ -197,30 +154,21 @@
                         </th>
                         <th class="actions-column">Actions</th>
                     </tr>
+                    <tbody data-bind='foreach: courses'>
                     <tr>
                         <td class="lp-column">1</td>
-                        <td class="name-column"><input type="text" name="name" value="Angielski" placeholder="Name">
+                        <td class="name-column"><input type="text" name="name" value="Angielski" placeholder="Name"
+                                                       data-bind="value: name">
                         </td>
                         <td class="lecturer-column"><input type="text" name="lecturer" value="Jim Beam"
-                                                           placeholder="Lecturer"></td>
+                                                           placeholder="Lecturer" data-bind="value: lecturer"></td>
                         <td class="actions-column">
                             <button class="edit-button" type="button"></button>
                             <button class="delete-button" type="button"></button>
                             <button class="more-info-button" type="button"></button>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="lp-column">2</td>
-                        <td class="name-column"><input type="text" name="name" value="Niemiecki" placeholder="Name">
-                        </td>
-                        <td class="lecturer-column"><input type="text" name="lecturer" value="Anna Mądra"
-                                                           placeholder="Lecturer"></td>
-                        <td class="actions-column">
-                            <button class="edit-button" type="button"></button>
-                            <button class="delete-button" type="button"></button>
-                            <button class="more-info-button" type="button"></button>
-                        </td>
-                    </tr>
+                    </tbody>
                     <!-- Empty row for adding new course -->
                     <tr>
                         <td class="lp-column">3</td>

@@ -183,17 +183,17 @@ table tr th {
     font-weight: normal;
 }
 
-table tr:nth-child(odd) {
+.tableRow:nth-child(odd) {
     background-color: lightsteelblue;
     color: black;
 }
 
-table tr:nth-child(even) {
+.tableRow:nth-child(even) {
     background-color: white;
     color: black;
 }
 
-table tr:first-child {
+thead tr:first-child {
     background-color: #203F66;
     color: white;
 }

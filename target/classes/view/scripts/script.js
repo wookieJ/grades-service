@@ -1,31 +1,59 @@
 "use strict";
 
-var students = ko.observableArray();
-// myObservableArray.push('Some value');
+var backendAddress = "http://localhost:8080/";
 
-// alert('The length of the array is ' + myObservableArray().length);
-// alert('The first element is ' + myObservableArray()[0]);
+var collection = function (url, idAttr) {
+    var self = ko.observableArray();
 
-// $.get( "http://localhost:8080/courses", function( data ) {
-//     alert( "Data Loaded: " + data);
-//     console.log(data)
-// });
+    self.url = url;
+    self.postUrl = self.url;
 
-// $.getJSON('http://localhost:8080/students', function(data) {
-//     console.log(data);
-// });
+    self.get = function () {
+        var url = self.url;
 
-$(document).ready(function () {
-    $.ajax({
-        type: 'GET',
-        // accept: 'application/json',
-        url: 'http://localhost:8080/',
-        // data: { get_param: 'value' },
-        success: function (data) {
-            // $('#cand').html(data);
-            ko.mapping.fromJS(data, students);
-            console.log(data)
-            // console.log(students);
-        }
-    });
+        $.ajax({
+            url: url,
+            dataType: "json",
+            success: function (data) {
+                data.forEach(function (element, index, array) {
+                    var object = ko.mapping.fromJS(element, {ignore: ["link"]});
+                    console.log(object);
+                    object.links = [];
+
+                    if ($.isArray(element.link)) {
+                        element.link.forEach(function (link) {
+                            object.links[link.params.rel] = link.href;
+                        });
+                    } else {
+                        object.links[element.link.params.rel] = element.link.href;
+                    }
+
+                    self.push(object);
+                });
+            }
+        });
+    };
+
+    return self;
+};
+
+function viewModel() {
+    var self = this;
+
+    self.students = new collection(backendAddress + "students", "index");
+    self.students.get();
+
+    self.courses = new collection(backendAddress + "courses", "id");
+    self.courses.get();
+
+    self.grades = new collection(backendAddress + "grades", "id");
+
+    return self;
+}
+
+var model = new viewModel();
+
+$(document).ready(function() {
+    ko.applyBindings(model);
+    console.log("Binding...");
 });

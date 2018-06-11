@@ -183,12 +183,12 @@ table tr th {
     font-weight: normal;
 }
 
-table tr:nth-child(odd) {
+table tbody:nth-child(odd) {
     background-color: lightsteelblue;
     color: black;
 }
 
-table tr:nth-child(even) {
+table tbody:nth-child(even) {
     background-color: white;
     color: black;
 }
@@ -385,7 +385,7 @@ table tr td input::placeholder {
     border: none;
     height: 2em;
     width: 2em;
-    background: url('../assets/edit.png') no-repeat center;
+    background: url('./assets/edit.png') no-repeat center;
     background-size: 80% 80%;
     padding: 1em;
 }
