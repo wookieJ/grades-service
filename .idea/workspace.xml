@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd9bfb06-411a-4cf1-a137-1a4fdace3d64" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/view/scripts/script.js" afterPath="$PROJECT_DIR$/src/main/resources/view/scripts/script.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/view/index.html" afterPath="$PROJECT_DIR$/src/main/resources/view/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -29,21 +30,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/view/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="118" column="25" lean-forward="true" selection-start-line="118" selection-start-column="25" selection-end-line="118" selection-end-column="25" />
+            <state relative-caret-position="323">
+              <caret line="121" column="105" lean-forward="true" selection-start-line="121" selection-start-column="105" selection-end-line="121" selection-end-column="105" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="script.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="script.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/view/scripts/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="832">
-              <caret line="244" column="3" lean-forward="false" selection-start-line="244" selection-start-column="3" selection-end-line="244" selection-end-column="3" />
+            <state relative-caret-position="305">
+              <caret line="213" column="0" lean-forward="true" selection-start-line="213" selection-start-column="0" selection-end-line="213" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -134,8 +135,8 @@
         <option value="$PROJECT_DIR$/src/main/java/org/rest/dao/MongoStudentDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/rest/converters/DateParamConverterProvider.java" />
         <option value="$PROJECT_DIR$/src/main/resources/view/styles/style.css" />
-        <option value="$PROJECT_DIR$/src/main/resources/view/index.html" />
         <option value="$PROJECT_DIR$/src/main/resources/view/scripts/script.js" />
+        <option value="$PROJECT_DIR$/src/main/resources/view/index.html" />
       </list>
     </option>
   </component>
@@ -563,7 +564,7 @@
       <workItem from="1528791881383" duration="21516000" />
       <workItem from="1528829261280" duration="9837000" />
       <workItem from="1528868011718" duration="15002000" />
-      <workItem from="1528981302802" duration="4907000" />
+      <workItem from="1528981302802" duration="4974000" />
     </task>
     <servers />
   </component>
@@ -579,7 +580,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="298900000" />
+    <option name="totallyTimeSpent" value="298967000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -978,18 +979,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/view/index.html">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/view/scripts/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="118" column="25" lean-forward="true" selection-start-line="118" selection-start-column="25" selection-end-line="118" selection-end-column="25" />
+        <state relative-caret-position="305">
+          <caret line="213" column="0" lean-forward="true" selection-start-line="213" selection-start-column="0" selection-end-line="213" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/view/scripts/script.js">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/view/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="832">
-          <caret line="244" column="3" lean-forward="false" selection-start-line="244" selection-start-column="3" selection-end-line="244" selection-end-column="3" />
+        <state relative-caret-position="323">
+          <caret line="121" column="105" lean-forward="true" selection-start-line="121" selection-start-column="105" selection-end-line="121" selection-end-column="105" />
           <folding />
         </state>
       </provider>
