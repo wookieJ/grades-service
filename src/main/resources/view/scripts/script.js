@@ -132,6 +132,10 @@ var request = function (address, id) {
         self.remove(this);
     }
 
+    self.parseQuery = function () {
+        self.get('?' + $.param(ko.mapping.toJS(self.queryParams)));
+    }
+
     return self;
 }
 
@@ -146,9 +150,66 @@ function viewModel() {
         self.grades.url = backendAddress + "/students/" + this.index() + "/grades";
         self.grades.get();
     }
+    self.students.queryParams = {
+        firstName: ko.observable(),
+        lastName: ko.observable(),
+        birthday: ko.observable(),
+        dateRelation: ko.observable()
+    }
+
+    self.students.getIndex = ko.observable();
+    self.indexTrigger = ko.computed(function () {
+        if (self.students.getIndex() != undefined) {
+            self.students.get('/' + self.students.getIndex());
+        }
+    }, self);
+
+    self.students.getRelG = ko.observable();
+    self.relGTrigger = ko.computed(function () {
+        if (self.students.getRelG() !== undefined) {
+            self.students.getRelL(false);
+
+            if (self.students.getRelG() === true)
+                self.students.queryParams.dateRelation("grater");
+            else
+                self.students.queryParams.dateRelation("equal");
+        }
+        else
+            self.students.queryParams.dateRelation("equal");
+    }, self);
+
+    self.students.getRelL = ko.observable();
+    self.relLTrigger = ko.computed(function () {
+        if (self.students.getRelL() !== undefined) {
+            self.students.getRelG(false);
+
+            if (self.students.getRelL() === true)
+                self.students.queryParams.dateRelation("lower");
+            else
+                self.students.queryParams.dateRelation("equal");
+        }
+        else
+            self.students.queryParams.dateRelation("equal");
+    }, self);
+
+    Object.keys(self.students.queryParams).forEach(function (key) {
+        self.students.queryParams[key].subscribe(function () {
+            self.students.parseQuery();
+        });
+    });
     self.students.get();
 
     self.courses = new request(backendAddress + "/courses", "id");
+    self.courses.queryParams = {
+        name: ko.observable(),
+        lecturer: ko.observable()
+    }
+
+    Object.keys(self.courses.queryParams).forEach(function (key) {
+        self.courses.queryParams[key].subscribe(function () {
+            self.courses.parseQuery();
+        });
+    });
     self.courses.get();
 
     self.grades = new request(backendAddress + "/grades", "id");
