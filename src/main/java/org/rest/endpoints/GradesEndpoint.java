@@ -32,21 +32,13 @@ public class GradesEndpoint {
      */
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getStudentGrades(@QueryParam("courseName") String courseName,
-                                     @QueryParam("value") String value,
-                                     @QueryParam("valueRelation") String valueRelation) {
+    public Response getStudentGrades(@QueryParam("courseName") String courseName, @QueryParam("value") String value, @QueryParam("valueRelation") String valueRelation) {
+        System.out.println("Grades/" + index);
         // getting student by it's index
         StudentService studentService = new StudentService();
         Student searchedStudent = studentService.getStudent(index);
 
-        // checking if student exists
-        if (searchedStudent == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
-        }
-
         List<Grade> grades = searchedStudent.getGrades();
-        if (grades == null || grades.isEmpty())
-            return Response.status(Response.Status.NOT_FOUND).entity("Student's grades not found").build();
 
         // filtering by course
         if (courseName != null) {
@@ -58,11 +50,11 @@ public class GradesEndpoint {
             switch (valueRelation.toLowerCase()) {
                 case "grater":
                     // TODO - is String for value needed, maybe Float?
-                    grades = grades.stream().filter(gr -> gr.getValue() > Float.valueOf(value).floatValue()).collect(Collectors.toList());
+                    grades = grades.stream().filter(gr -> gr.getGradeValue() > Float.valueOf(value).floatValue()).collect(Collectors.toList());
                     break;
                 case "lower":
                     // TODO - is String for value needed, maybe Float?
-                    grades = grades.stream().filter(gr -> gr.getValue() < Float.valueOf(value).floatValue()).collect(Collectors.toList());
+                    grades = grades.stream().filter(gr -> gr.getGradeValue() < Float.valueOf(value).floatValue()).collect(Collectors.toList());
                     break;
             }
         }
@@ -70,6 +62,7 @@ public class GradesEndpoint {
         // creating list of student's grades
         GenericEntity<List<Grade>> entity = new GenericEntity<List<Grade>>(Lists.newArrayList(grades)) {
         };
+        System.out.println(grades);
         // creating xml response
         return Response.status(Response.Status.OK).entity(entity).build();
     }
@@ -114,34 +107,28 @@ public class GradesEndpoint {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addStudentGrades(Grade grade) {
-        // checking if grade is a null
-        if (grade != null) {
-            // getting student by it's index
-            StudentService studentService = new StudentService();
-            Student searchedStudent = studentService.getStudent(index);
+        System.out.println("POST");
+        System.out.println(grade);
 
-            // checking if student exists
-            if (searchedStudent == null)
-                return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
+        StudentService studentService = new StudentService();
+        Student searchedStudent = studentService.getStudent(index);
 
-            CourseService courseService = new CourseService();
-            Course searchedCourse = courseService.getCourseByParameters(grade.getCourse().getName(), grade.getCourse().getLecturer());
+        System.out.println(searchedStudent);
+        CourseService courseService = new CourseService();
 
-            if (searchedCourse == null)
-                return Response.status(Response.Status.NOT_FOUND).entity("Grade's course not found").build();
+        IdGeneratorService generator = new IdGeneratorService();
+        grade.setId(generator.generateGradeId());
+        grade.setStudentIndex(searchedStudent.getIndex());
+        searchedStudent.addGrade(grade);
+        System.out.println(searchedStudent);
+        studentService.updateStudent(searchedStudent);
 
-            IdGeneratorService generator = new IdGeneratorService();
-            grade.setId(generator.generateGradeId());
-            grade.setStudentIndex(searchedStudent.getIndex());
-            grade.setCourse(searchedCourse);
-            searchedStudent.addGrade(grade);
-            studentService.updateStudent(searchedStudent, false);
-            String result = "Student grade " + grade + " added!\n";
+        System.out.println(searchedStudent);
+        System.out.println(grade);
+        String result = "Student grade " + grade + " added!\n";
 
-            // creating response
-            return Response.status(Response.Status.CREATED).header("Location", "students/" + searchedStudent.getIndex() + "/grades/" + grade.getId()).entity(result).build();
-        } else
-            return Response.status(Response.Status.NO_CONTENT).entity("Grade cannot be null!").build();
+        // creating response
+        return Response.status(Response.Status.CREATED).header("Location", "students/" + searchedStudent.getIndex() + "/grades/" + grade.getId()).entity(result).build();
     }
 
     /**
@@ -155,43 +142,39 @@ public class GradesEndpoint {
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addStudentGrade(Grade grade, @PathParam("id") int id) {
-        // checking if grade is a null
-        if (grade != null) {
-            // getting student by it's index
-            StudentService studentService = new StudentService();
-            Student searchedStudent = studentService.getStudent(index);
+        // getting student by it's index
+        if(grade.getCourse() == null)
+            return Response.status(Response.Status.NOT_FOUND).entity("Grade's course not existing").build();
+        StudentService studentService = new StudentService();
+        Student searchedStudent = studentService.getStudent(index);
+        System.out.println("PUT");
+        System.out.println(searchedStudent);
 
-            // checking if student exists
-            if (searchedStudent == null) {
-                return Response.status(Response.Status.NOT_FOUND).entity("Student not found").build();
-            }
+        // getting student's grade by it's id
+        Grade searchedGrade = searchedStudent.getGradeById(id);
+        System.out.println(searchedGrade);
 
-            // getting student's grade by it's id
-            Grade searchedGrade = searchedStudent.getGradeById(id);
+        // checking if grade's course exists
+        CourseService courseService = new CourseService();
+        System.out.println(grade.getCourse());
+        Course searchedCourse = courseService.getCourseById(grade.getCourse().getId());
+        System.out.println("Course : " + searchedCourse);
+        if (searchedCourse == null)
+            return Response.status(Response.Status.NOT_FOUND).entity("Grade's course not found").build();
 
-            // checking if student's grade exists
-            if (searchedGrade == null) {
-                return Response.status(Response.Status.NOT_FOUND).entity("Grade not found").build();
-            }
-
-            // checking if grade's course exists
-            CourseService courseService = new CourseService();
-            Course searchedCourse = courseService.getCourseByParameters(grade.getCourse().getName(), grade.getCourse().getLecturer());
-            System.out.println("Course : " + searchedCourse);
-            if (searchedCourse == null)
-                return Response.status(Response.Status.NOT_FOUND).entity("Grade's course not found").build();
-
-            searchedCourse.setId(grade.getCourse().getId());
-            grade.setId(id);
-            grade.setStudentIndex(searchedStudent.getIndex());
-            searchedStudent.updateStudentGrade(grade);
-            studentService.updateStudent(searchedStudent, false);
-            String result = "Student grade " + grade + " updated!";
-
-            // creating response
-            return Response.status(Response.Status.CREATED).entity(result).build();
-        } else
-            return Response.status(Response.Status.NOT_FOUND).entity("Grade cannot be null!").build();
+        searchedCourse.setId(grade.getCourse().getId());
+        grade.setId(id);
+        grade.setStudentIndex(searchedStudent.getIndex());
+        System.out.println(grade.get_id());
+        grade.set_id(searchedGrade.get_id());
+        System.out.println(grade.get_id());
+        searchedStudent.updateStudentGrade(grade);
+        System.out.println(searchedStudent);
+        studentService.updateStudent(searchedStudent);
+        String result = "Student grade " + grade + " updated!";
+        System.out.println(searchedGrade);
+        // creating response
+        return Response.status(Response.Status.CREATED).entity(result).build();
     }
 
     /**
@@ -218,7 +201,7 @@ public class GradesEndpoint {
 
         // removing student grade
         searchedStudent.removeStudentGradeById(id);
-        studentService.updateStudent(searchedStudent, false);
+        studentService.updateStudent(searchedStudent);
         String result = "Student grade " + searchedGrade + " deleted!";
 
         // creating response

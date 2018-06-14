@@ -11,7 +11,6 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Path("/courses")
 public class CoursesEndpoint {
@@ -24,9 +23,9 @@ public class CoursesEndpoint {
      */
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getAllCourses(@QueryParam("lecturer") String lecturer) {
+    public Response getAllCourses(@QueryParam("name") String name, @QueryParam("lecturer") String lecturer) {
         CourseService courseService = new CourseService();
-        List<Course> courses = courseService.getCoursesByLecturerFilter(lecturer);
+        List<Course> courses = courseService.getCoursesByFilter(name, lecturer);
 
         GenericEntity<List<Course>> entity = new GenericEntity<List<Course>>(Lists.newArrayList(courses)) {
         };
@@ -65,16 +64,15 @@ public class CoursesEndpoint {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addCourse(Course course) {
-        if (course != null) {
             CourseService courseService = new CourseService();
             course = courseService.addCourse(course);
+
+        System.out.println(course);
 
             String result = "Course " + course + " added!\n";
 
             // creating response
             return Response.status(Response.Status.CREATED).header("Location", "/courses/" + course.getId()).entity(result).build();
-        } else
-            return Response.status(Response.Status.NO_CONTENT).entity("Courses cannot be null!").build();
     }
 
     /**
@@ -138,9 +136,10 @@ public class CoursesEndpoint {
                     if (st.getGrades().get(i).getCourse().getId() == id) {
                         System.out.println(st.getGrades().get(i));
                         st.removeStudentGradeById(st.getGrades().get(i).getId());
+                        i--;
                     }
                 }
-                studentService.updateStudent(st, true);
+                studentService.updateStudent(st);
             }
         }
 

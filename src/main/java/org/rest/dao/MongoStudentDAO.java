@@ -56,14 +56,19 @@ public class MongoStudentDAO extends MongoGenericDAO<Student, Integer> {
      * @return list of filtered by first name students
      */
     public List<Student> getStudentsByFilters(String firstName, String lastName, Date birthday, String dateRelation) {
+        System.out.println("B: " + birthday);
+        System.out.println("Rel: " + dateRelation);
         final Query<Student> query = datastore.createQuery(Student.class);
         if(firstName != null)
             query.field("firstName").containsIgnoreCase(firstName);
         if(lastName != null)
             query.field("lastName").containsIgnoreCase(lastName);
         if(birthday != null && dateRelation != null) {
-            if(dateRelation.equals("equal"))
+            System.out.println("birthday != null ? " + birthday != null);
+            if(dateRelation.equals("equal")) {
+                System.out.println("Equal!");
                 query.field("birthday").equal(birthday);
+            }
             else if(dateRelation.equals("grater"))
                 query.field("birthday").greaterThan(birthday);
             else if(dateRelation.equals("lower"))

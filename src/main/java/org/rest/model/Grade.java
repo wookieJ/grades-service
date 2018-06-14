@@ -1,5 +1,6 @@
 package org.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.bson.types.ObjectId;
 import org.glassfish.jersey.linking.InjectLink;
 import org.glassfish.jersey.linking.InjectLinks;
@@ -33,11 +34,13 @@ public class Grade {
     ObjectId _id;
 
     private int id;
-    private float value;
-    // @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="CET")
+    private float gradeValue;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "CET")
     private Date date;
 
-    @Reference
+//    @Reference
+    @Embedded
     private Course course;
     private static int idNumber = 0;
 
@@ -66,12 +69,12 @@ public class Grade {
         this.studentIndex = studentIndex;
     }
 
-    public float getValue() {
-        return value;
+    public float getGradeValue() {
+        return gradeValue;
     }
 
-    public void setValue(float value) {
-        this.value = (float) (0.5 * Math.round(value * 2));
+    public void setGradeValue(float gradeValue) {
+        this.gradeValue = (float) (0.5 * Math.round(gradeValue * 2));
     }
 
     public Date getDate() {
@@ -90,9 +93,9 @@ public class Grade {
         this.course = course;
     }
 
-    public Grade(float value, Date date, Course course) {
+    public Grade(float gradeValue, Date date, Course course) {
         this.id = idNumber++;
-        this.value = value;
+        this.gradeValue = gradeValue;
         this.date = date;
         this.course = course;
     }
@@ -100,7 +103,7 @@ public class Grade {
     public Grade(Grade grade) {
         this.studentIndex = grade.studentIndex;
         this.id = idNumber++;
-        this.value = grade.getValue();
+        this.gradeValue = grade.getGradeValue();
         this.date = grade.getDate();
         this.course = grade.getCourse();
     }
@@ -110,6 +113,6 @@ public class Grade {
 
     @Override
     public String toString() {
-        return "Grade{" + "id=" + id + ", studentIndex=" + studentIndex + ", value=" + value + ", date=" + date + ", course=" + "" + '}';
+        return "Grade{" + "id=" + id + ", studentIndex=" + studentIndex + ", gradeValue=" + gradeValue + ", date=" + date + ", course=" + course + '}';
     }
 }

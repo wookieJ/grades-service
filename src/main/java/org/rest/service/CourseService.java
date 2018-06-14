@@ -50,16 +50,15 @@ public class CourseService {
     }
 
     /**
-     * Getting course by parameters.
+     * Getting course by id.
      *
-     * @param name     course name.
-     * @param lecturer lecturer name.
+     * @param id course id.
      * @return course we want to get.
      */
-    public Course getCourseByParameters(String name, String lecturer) {
+    public Course getCourseById(int id) {
         DAOFactory factory = DAOFactory.getDAOFactory();
         MongoCourseDAO mongoCourseDAO = factory.getMongoCourseDAO();
-        return mongoCourseDAO.readByParameters(name, lecturer);
+        return mongoCourseDAO.readById(id);
     }
 
     /**
@@ -92,9 +91,9 @@ public class CourseService {
      * @param lecturer name of course's lecturer
      * @return list of courses filtered with lecturer
      */
-    public List<Course> getCoursesByLecturerFilter(String lecturer) {
+    public List<Course> getCoursesByFilter(String name, String lecturer) {
         DAOFactory factory = DAOFactory.getDAOFactory();
         MongoCourseDAO mongoCourseDAO = factory.getMongoCourseDAO();
-        return mongoCourseDAO.getByLecturer(lecturer);
+        return mongoCourseDAO.getByFilter(name, lecturer);
     }
 }

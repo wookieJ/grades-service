@@ -78,7 +78,8 @@ footer section a {
 
 /* ---------- Padding, margin ------- */
 table tr th,
-table tr td {
+table tr td,
+thead input{
     text-align: center;
 }
 
@@ -198,17 +199,22 @@ thead tr:first-child {
     color: white;
 }
 
-table tr:hover {
+.lastRow {
+    background-color: #e4e4e4;
+    color: black;
+}
+
+.tableRow:hover {
     background-color: #DB5102;
     color: white;
 }
 
-table tr th select:hover,
-table tr td select:hover {
+.tableRow th select:hover,
+.tableRow td select:hover {
     color: black;
 }
 
-table tr td {
+.tableRow td {
     text-align: center;
 }
 
@@ -219,51 +225,41 @@ table {
 }
 
 table td,
-table th{
+table th {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .student-list-table {
-    overflow-x:auto;
-}
-
-.lp-column {
-    width: 0.8em;
+    overflow-x: auto;
 }
 
 .index-column {
-    width: 2em;
+    width: 1em;
 }
 
 .index-column input {
+    width: 3em;
     text-align: center;
 }
 
 .firstname-column {
-    width: 3em;
-}
-
-.firstname-column input {
-    padding-left: 0.2em;
+    width: 2.5em;
 }
 
 .lastname-column {
     width: 3em;
 }
 
-.lastname-column input {
-    padding-left: 0.2em;
-}
-
 .birthday-column {
-    width: 2em;
+    width: 3em;
 }
 
 .birthday-column input {
-    text-align: center;
+    /*text-align: center;*/
 }
+
 .actions-column {
     width: 2em;
 }
@@ -297,21 +293,18 @@ table th{
 }
 
 .lecturer-column input {
-    padding-left:0.3em;
 }
 
-table tr th input,
-table tr td input
-{
+.tableRow th input,
+.tableRow td input {
     width: auto;
 }
 
-table tr th input,
-table tr th select {
+.tableRow th input,
+.tableRow th select {
     text-align: center;
 }
 
-table tr th input,
 table tr td input,
 table tr th select,
 table tr td select {
@@ -319,14 +312,20 @@ table tr td select {
     background-color: inherit;
     border: none;
     color: inherit;
-    /*padding: 0.2em;*/
+}
+
+table tr th input {
+    /*width: 100%;*/
+    background-color: inherit;
+    border: none;
+    color: inherit;
 }
 
 table tr th input:invalid,
 table tr td input:invalid,
 table tr th select:invalid,
-table tr td select:invalid{
-    border:3px solid red;
+table tr td select:invalid {
+    border: 3px solid red;
     color: red;
 }
 
@@ -348,6 +347,10 @@ table tr td input::placeholder {
     background: url('../assets/delete.png') no-repeat center;
     background-size: 80% 80%;
     padding: 1em;
+}
+
+button:hover {
+    background-color: grey;
 }
 
 .more-info-button {
@@ -388,6 +391,15 @@ table tr td input::placeholder {
     background: url('../assets/edit.png') no-repeat center;
     background-size: 80% 80%;
     padding: 1em;
+}
+
+.relPic {
+    height: 0.8em;
+    width: 0.8em;
+}
+
+.lowerCheckbox {
+    background: url('../assets/edit.png') no-repeat center;
 }
 
 @media print {

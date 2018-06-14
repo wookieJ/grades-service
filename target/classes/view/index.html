@@ -13,7 +13,7 @@
 <body>
 
 <header>
-    <img src="assets/hat.png" alt="No photo" width="6em" height="4em">
+    <img src="assets/hat.png" alt="No photo">
     <h1>Student-Grade Manager</h1>
 </header>
 
@@ -21,165 +21,199 @@
     <nav class="navbar">
         <div><a href="#student-list-content">Manage students</a><br/></div>
         <div><a href="#course-list-content">Manage courses</a><br/></div>
-        <div><a href="#student-grades-content">Grades table</a></div>
+        <!--<div><a href="#student-grades-content">Grades table</a></div>-->
     </nav>
 
     <section class="contentTables">
         <article class="student-list-content" id="student-list-content">
             <h2>List of students</h2>
-            <form>
-                <table class="student-list-table">
-                    <tr>
-                        <th class="lp-column">Lp</th>
-                        <th class="index-column"><input type="text" name="indexColumn" placeholder="Index">
-                        </th>
-                        <th class="firstname-column"><input type="text" name="firstNameColumn" placeholder="First Name">
-                        </th>
-                        <th class="lastname-column"><input type="text" name="lastNameColumn" placeholder="Last Name">
-                        </th>
-                        <th class="birthday-column">
-                            <input type="text" name="birthdayColumn" onMouseOver="this.type='date'"
-                                   onMouseOut="this.type='text'"
-                                   placeholder="Birthday">
-                        </th>
-                        <th class="actions-column">Actions</th>
-                    </tr>
-                    <tbody data-bind='foreach: students'>
-                    <tr>
-                        <td class="lp-column">1</td>
-                        <td class="index-column"><input type="text" name="index" value=121578 readonly
-                                                        data-bind="value: index"></td>
-                        <td class="firstname-column"><input type="text" name="firstName" required="required" value="Jan"
-                                                            placeholder="First name" data-bind="value: firstName"></td>
-                        <td class="lastname-column"><input type="text" name="lastName" required="required" value="Nowak"
-                                                           placeholder="Last name" data-bind="value: lastName"></td>
-                        <td class="birthday-column"><input type="date" name="birthday" required="required"
-                                                           value="1995-02-12" required="required"
-                                                           data-bind="value: dateOfBirth"></td>
-                        <td class="actions-column">
-                            <button class="delete-button" type="button"></button>
-                            <button class="more-info-button" type="button"></button>
-                        </td>
-                    </tr>
-                    </tbody>
-                    <!-- Empty row for adding new student -->
-                    <tr>
-                        <td class="lp-column">4</td>
-                        <td class="index-column"><input type="text" name="index" disabled></td>
+            <table class="student-list-table">
+                <thead>
+                <tr>
+                    <th class="index-column"><input data-bind="textInput: model.students.getIndex"
+                                                    type="text" name="indexColumn" placeholder="Index">
+                    </th>
+                    <th class="firstname-column"><input data-bind="textInput: model.students.queryParams.firstName"
+                                                        type="text" name="firstNameColumn" placeholder="First Name">
+                    </th>
+                    <th class="lastname-column"><input data-bind="textInput: model.students.queryParams.lastName"
+                                                       type="text" name="lastNameColumn" placeholder="Last Name">
+                    </th>
+                    <th class="birthday-column">
+                        <input data-bind="textInput: model.students.queryParams.birthday" type="text"
+                               name="birthdayColumn" onmouseover="(this.type='date')"
+                               onmouseout="this.type='text'"
+                               placeholder="Birthday">
+                        <!--<button class="upButton" data-bind="click: model.students.graterRel">UP</button>-->
+                        <!--<button class="downButton" data-bind="click: model.students.lowerRel">DOWN</button>-->
+                        <!--<button class="downButton" data-bind="click: model.students.lowerRel">DOWN</button>-->
+
+                        <!--<div class="graterCheckboxWrapper">-->
+                        <img class="relPic" src="assets/up.png"/>
+                            <input class="graterCheckbox" type="checkbox" data-bind="checked: model.students.getRelG" value="UP">
+                       <!--</div>-->
+                        <img class="relPic" src="assets/down.png"/>
+
+                        <input class = "lowerCheckbox" type="checkbox" data-bind="checked: model.students.getRelL" value="DOWN">
+                    </th>
+                    <th class="actions-column">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody data-bind='foreach: students'>
+                <tr class="tableRow">
+                    <td class="index-column"><input placeholder="Index" type="number" data-bind="value: index"
+                                                    readonly step="1" min="0" max="999999" required/></td>
+                    <td class="firstame-column"><input type="text" name="firstName" required="required" value="Jan"
+                                                       placeholder="First name" data-bind="value: firstName"></td>
+                    <td class="lastname-column"><input type="text" name="lastName" required="required" value="Nowak"
+                                                       placeholder="Last name" data-bind="value: lastName"></td>
+                    <td class="birthday-column"><input type="date" name="birthday" required="required"
+                                                       value="1995-02-12" data-bind="value: birthday"
+                                                       title="birthday"></td>
+                    <td class="actions-column">
+                        <button class="delete-button" data-bind="click:  $parent.students.delete"></button>
+                        <button class="more-info-button" data-bind="click: $parent.students.getGrades"></button>
+                    </td>
+                </tr>
+
+                <!-- Empty row for adding new student -->
+                </tbody>
+                <tr class="tableRow">
+                    <form data-bind="submit: students.add">
+                        <!--<td class="lp-column">4</td>-->
+                        <td class="index-column"><input name="index" placeholder="Index" type="number" readonly step="1"
+                                                        min="0" max="999999" required/></td>
                         <td class="firstname-column"><input type="text" name="firstName" placeholder="first name"></td>
                         <td class="lastname-column"><input type="text" name="lastName" placeholder="last name"></td>
                         <td class="birthday-column"><input type="text" onfocus="(this.type='date')"
                                                            onblur="this.type='text'" name="birthday"
                                                            placeholder="Date of birth"></td>
+
                         <td class="actions-column">
                             <button class="add-student-button" type="submit"></button>
                         </td>
-                    </tr>
-                </table>
-            </form>
+                    </form>
+                </tr>
+            </table>
         </article>
 
-        <article class="student-grades-content" id="student-grades-content">
-            <h2>Student's grades</h2>
-            <form>
-                <table class="student-grades-table">
-                    <tr>
-                        <th class="lp-column">Lp</th>
-                        <th class="value-column"><input type="text" name="valueColumn" placeholder="Value">
-                        </th>
-                        <th class="birthday-column"><input type="text" name="date" onMouseOver="this.type='date'"
-                                                           onMouseOut="this.type='text'"
-                                                           placeholder="Birthday">
-                        </th>
-                        <th class="course-column">
-                            <select name="course" id="courseColumnSelector">
-                                <option value="Przedmiot" selected>Przedmiot</option>
-                                <option value="Angielski">Angielski</option>
-                                <option value="Niemiecki">Niemiecki</option>
-                                <option value="WF">WF</option>
-                            </select>
-                        </th>
-                        <th class="actions-column">Actions</th>
-                    </tr>
-                    <tr>
-                        <td class="lp-column">1</td>
-                        <td class="value-column"><input type="number" name="value" step=0.5 min=2.0 max=5.0 value=4.0>
-                        </td>
-                        <td class="birthday-column"><input type="date" name="date" value=2018-05-10 required="required">
-                        </td>
-                        <td class="course-column">
-                            <select name="course" id="1courseSelector">
-                                <option value="Angielski" selected>Angielski</option>
-                                <option value="Niemiecki">Niemiecki</option>
-                                <option value="WF">WF</option>
-                            </select>
-                        <td class="actions-column">
-                            <button class="edit-button" type="button"></button>
-                            <button class="delete-button" type="button"></button>
-                            <button class="more-info-button" type="button"></button>
-                        </td>
-                    </tr>
-                    <!-- Empty row for adding new grade -->
-                    <tr>
-                        <td class="lp-column">3</td>
-                        <td class="value-column"><input type="number" name="value" step=0.5 min=2.0 max=5.0
-                                                        placeholder="value"></td>
-                        <td class="birthday-column"><input type="text" onfocus="(this.type='date')"
-                                                           onmouseout="this.type='text'" name="date"
-                                                           placeholder="Date of birth"></td>
-                        <td class="course-column">
-                            <select name="course" id="3courseSelector">
-                                <option value="Angielski" selected>Angielski</option>
-                                <option value="Niemiecki">Niemiecki</option>
-                                <option value="WF">WF</option>
-                            </select>
-                        </td>
-                        <td class="actions-column">
-                            <button class="add-button" type="submit"></button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </article>
 
         <article class="course-list-content" id="course-list-content">
             <h2>List of courses</h2>
-            <form>
-                <table class="course-list-table">
-                    <tr>
-                        <th class="lp-column">Lp</th>
-                        <th class="name-column"><input type="text" name="nameColumn" placeholder="Name">
-                        </th>
-                        <th class="lecturer-column"><input type="text" name="lecturerColumn" placeholder="Lecturer">
-                        </th>
-                        <th class="actions-column">Actions</th>
-                    </tr>
-                    <tbody data-bind='foreach: courses'>
-                    <tr>
-                        <td class="lp-column">1</td>
-                        <td class="name-column"><input type="text" name="name" value="Angielski" placeholder="Name"
-                                                       data-bind="value: name">
-                        </td>
-                        <td class="lecturer-column"><input type="text" name="lecturer" value="Jim Beam"
-                                                           placeholder="Lecturer" data-bind="value: lecturer"></td>
-                        <td class="actions-column">
-                            <button class="edit-button" type="button"></button>
-                            <button class="delete-button" type="button"></button>
-                            <button class="more-info-button" type="button"></button>
-                        </td>
-                    </tr>
-                    </tbody>
-                    <!-- Empty row for adding new course -->
-                    <tr>
-                        <td class="lp-column">3</td>
+            <table class="course-list-table">
+                <thead>
+                <tr>
+                    <!--<th class="lp-column">Lp</th>-->
+                    <th class="name-column"><input data-bind="textInput: model.courses.queryParams.name" type="text"
+                                                   name="nameColumn" placeholder="Name">
+                    </th>
+                    <th class="lecturer-column"><input data-bind="textInput: model.courses.queryParams.lecturer"
+                                                       type="text" name="lecturerColumn" placeholder="Lecturer">
+                    </th>
+                    <th class="actions-column">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody data-bind='foreach: courses'>
+                <tr class="tableRow">
+                    <!--<td class="lp-column">1</td>-->
+                    <td class="name-column"><input type="text" name="name" value="Angielski" placeholder="Name"
+                                                   data-bind="value: name">
+                    </td>
+                    <td class="lecturer-column"><input type="text" name="lecturer" value="Jim Beam"
+                                                       placeholder="Lecturer" data-bind="value: lecturer"></td>
+                    <td class="actions-column">
+                        <!--<button class="edit-button" type="button"></button>-->
+                        <button data-bind="click: $parent.courses.delete" class="delete-button"></button>
+                        <!--<button data-bind="click: $parent.courses.getGrades" class="more-info-button"></button>-->
+                    </td>
+                </tr>
+                </tbody>
+
+                <!-- Empty row for adding new course -->
+                <tr class="tableRow">
+                    <form data-bind="submit: courses.add">
                         <td class="name-column"><input type="text" name="name" placeholder="name"></td>
                         <td class="lecturer-column"><input type="text" name="lecturer" placeholder="lecturer"></td>
                         <td class="actions-column">
                             <button class="add-button" type="submit"></button>
                         </td>
-                    </tr>
-                </table>
+                    </form>
+                </tr>
+            </table>
             </form>
+        </article>
+
+        <article class="student-grades-content" id="student-grades-content">
+            <h2>Student's grades</h2>
+            <table class="student-grades-table">
+                <thead>
+                <tr>
+                    <th class="value-column"><input type="text" name="valueColumn" placeholder="Value">
+                    </th>
+                    <th class="birthday-column"><input type="text" name="date" onMouseOver="this.type='date'"
+                                                       onMouseOut="this.type='text'"
+                                                       placeholder="Date">
+                    </th>
+                    <th class="course-column">
+                        <select name="course" id="courseColumnSelector" title="course">
+                            <option value="Przedmiot" selected>Course</option>
+                            <option value="Angielski">Angielski</option>
+                            <option value="Niemiecki">Niemiecki</option>
+                            <option value="WF">WF</option>
+                        </select>
+                    </th>
+                    <th class="actions-column">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody data-bind='foreach: grades'>
+                <tr class="tableRow">
+                    <td class="value"><input type="number" name="gradeValue" step=0.5 min=2.0 max=5.0 value=2.0
+                                             title="Value" data-bind="value: gradeValue" placeholder="Value">
+                    </td>
+                    <td class="birthday-column"><input type="date" name="date" required="required"
+                                                       data-bind="value: date"
+                                                       title="date"></td>
+                    <td class="course-column">
+                        <select name="id" required data-bind="options: $parent.courses,
+                                                      optionsText: function(i) { return i.name(); },
+                                                      optionsValue: function(i) { return i.id(); },
+                                                      optionsCaption: 'Choose course',
+                                                      value: course.id ">
+
+                        </select>
+                    <td class=" actions-column">
+                        <button class="delete-button" data-bind="click: $parent.grades.delete"></button>
+                    </td>
+                </tr>
+                </tbody>
+                <tbody>
+                <!-- Empty row for adding new grade -->
+                <tr class="tableRow">
+                    <form data-bind="submit: grades.add">
+                        <td class="value-column"><input type="number" name="gradeValue" step=0.5 min=2.0 max=5.0
+                                                        placeholder="Value"></td>
+                        <td class="birthday-column"><input type="text" onmouseover="(this.type='date')"
+                                                           onmouseout="this.type='text'" name="date"
+                                                           placeholder="Date"></td>
+                        <td class="course-column">
+                            <select name="id" data-bind="options: model.courses,
+                                                      optionsText: function(i) { return i.name(); },
+                                                      optionsValue: function(i) { return i.id(); },
+                                                      optionsCaption: 'Choose subject...',
+                                                      value: model.grades.selectedCourse,
+                                                      enable: model.grades.isCourseEnable()">
+                            </select>
+                        </td>
+                        <td class="actions-column">
+                            <button class="add-button" type="submit"></button>
+                        </td>
+                    </form>
+                </tr>
+                </tbody>
+            </table>
         </article>
     </section>
 </section>

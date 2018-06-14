@@ -50,14 +50,13 @@ public class MongoCourseDAO extends MongoGenericDAO<Course, Integer> {
     }
 
     /**
-     * Getting Course by it's name and lecturer name
+     * Getting Course by it's id
      *
-     * @param name     name of course
-     * @param lecturer name of lecturer
+     * @param id id of course
      * @return course filtered by it's name and lecturer name
      */
-    public Course readByParameters(String name, String lecturer) {
-        return datastore.createQuery(Course.class).field("name").equal(name).field("lecturer").equal(lecturer).get();
+    public Course readById(int id) {
+        return datastore.createQuery(Course.class).field("id").equal(id).get();
     }
 
     /**
@@ -66,10 +65,12 @@ public class MongoCourseDAO extends MongoGenericDAO<Course, Integer> {
      * @param lecturer lecturer name
      * @return list of courses filtered by lecturer name
      */
-    public List<Course> getByLecturer(String lecturer) {
+    public List<Course> getByFilter(String name, String lecturer) {
         final Query<Course> query = datastore.createQuery(Course.class);
         if (lecturer != null)
             query.field("lecturer").containsIgnoreCase(lecturer);
+        if(name != null)
+            query.field("name").containsIgnoreCase(name);
         List<Course> courses = query.asList();
         return courses;
     }

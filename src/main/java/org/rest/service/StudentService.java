@@ -58,13 +58,10 @@ public class StudentService {
      * @param student student we want to set
      * @return true if operation succeeded, false otherwise
      */
-    public boolean updateStudent(Student student, boolean force) {
+    public boolean updateStudent(Student student) {
         DAOFactory factory = DAOFactory.getDAOFactory();
         MongoStudentDAO mongoStudentDAO = factory.getMongoStudentDAO();
-        if (force == false)
-            return mongoStudentDAO.update(student);
-        else
-            return mongoStudentDAO.update(student);
+        return mongoStudentDAO.update(student);
     }
 
     /**
@@ -84,7 +81,7 @@ public class StudentService {
      *
      * @param firstName    student's first name which will we used for filtering students list.
      * @param lastName     student's last name which will we used for filtering students list.
-     * @param birthday         date of birth which is used for filtering students list.
+     * @param birthday     date of birth which is used for filtering students list.
      * @param dateRelation the way we want to compare dates. For example "equal", "grater", "lower".
      * @return list of students that contain specified filters
      */

@@ -12,6 +12,7 @@ import java.net.UnknownHostException;
 // TODO - return empty list, not 404 response code
 // TODO - write comments
 // TODO - add MANIFEST for running jar file
+// TODO - throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity("Not found").build());
 public class Application {
     /**
      * URI where application started at.

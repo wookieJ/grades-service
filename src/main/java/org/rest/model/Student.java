@@ -116,7 +116,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" + "index=" + index + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", birthday=" + birthday + ", grades=" + grades + '}';
+        return "Student{" + "id=" + id + ", index=" + index + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", birthday=" + birthday + ", grades=" + grades + ", links=" + links + '}';
     }
 
     /**
@@ -135,7 +135,7 @@ public class Student {
      * @return grade with searching id
      */
     public Grade getGradeById(int id) {
-        Optional<Grade> grade = getGrades().stream().filter(c -> c.getId() == id).findFirst();
+        Optional<Grade> grade = getGrades().stream().filter(c -> c.getId() == id).findAny();
         return grade.orElse(null);
     }
 
