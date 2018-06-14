@@ -30,17 +30,14 @@
             <table class="student-list-table">
                 <thead>
                 <tr>
-                    <th class="index-column"><input data-bind="textInput: viewModel.students.getIndex"
-                                                    type="text" name="indexColumn" placeholder="Index">
+                    <th class="index-column"><input type="text" name="indexColumn" placeholder="Index">
                     </th>
-                    <th class="firstname-column"><input data-bind="textInput: viewModel.students.queryParams.firstName"
-                                                        type="text" name="firstNameColumn" placeholder="First Name">
+                    <th class="firstname-column"><input type="text" name="firstNameColumn" placeholder="First Name">
                     </th>
-                    <th class="lastname-column"><input data-bind="textInput: viewModel.students.queryParams.lastName"
-                                                       type="text" name="lastNameColumn" placeholder="Last Name">
+                    <th class="lastname-column"><input type="text" name="lastNameColumn" placeholder="Last Name">
                     </th>
                     <th class="birthday-column">
-                        <input data-bind="textInput: viewModel.students.queryParams.birthday" type="text"
+                        <input type="text"
                                name="birthdayColumn" onmouseover="(this.type='date')"
                                onmouseout="this.type='text'"
                                placeholder="Birthday">
@@ -101,11 +98,10 @@
                 <thead>
                 <tr>
                     <!--<th class="lp-column">Lp</th>-->
-                    <th class="name-column"><input data-bind="textInput: viewModel.courses.queryParams.name" type="text"
+                    <th class="name-column"><input type="text"
                                                    name="nameColumn" placeholder="Name">
                     </th>
-                    <th class="lecturer-column"><input data-bind="textInput: viewModel.courses.queryParams.lecturer"
-                                                       type="text" name="lecturerColumn" placeholder="Lecturer">
+                    <th class="lecturer-column"><input type="text" name="lecturerColumn" placeholder="Lecturer">
                     </th>
                     <th class="actions-column">Actions</th>
                 </tr>
