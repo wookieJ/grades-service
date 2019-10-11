@@ -16,13 +16,12 @@ import java.util.List;
  */
 public abstract class MongoGenericDAO<T, PK extends Serializable> {
     // TODO - Singleton pattern implement
-    private MongoClient mongoClient = new MongoClient("localhost", 8004);
-//    private MongoClient mongoClient = new MongoClient(
-//            new MongoClientURI( "mongodb://admin:password123@ds253840.mlab.com:53840/grades-service" )
-//    );
+//    private MongoClient mongoClient = new MongoClient("localhost", 8004);
+    private MongoClient mongoClient = new MongoClient(
+            new MongoClientURI( "mongodb+srv://gradeServiceUser:mbeQPLJ3s9Pg6z9w@cluster0-fmrgd.gcp.mongodb.net/test?retryWrites=true&w=majority" )
+    );
     private Morphia morphia = new Morphia();
     protected Datastore datastore = morphia.createDatastore(mongoClient, "StudentGrades");
-//    protected Datastore datastore = morphia.createDatastore(mongoClient, "grades-service");
 
     public abstract List<T> getAll();
 
